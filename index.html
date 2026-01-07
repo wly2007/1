@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nice To Meet You</title>
+  <title>Personal Page</title>
   <style>
     * {
       margin: 0;
@@ -13,113 +13,230 @@
     }
 
     body {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      /* 背景图配置处：替换 url 中的路径即可 */
-      background-image: url("你的背景图路径.jpg");
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      /* 默认背景图，你可以替换成自己的 */
+      background: url("https://picsum.photos/1920/1080") no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      font-family: 'Arial', sans-serif;
-      padding: 20px;
+      position: relative;
     }
 
-    /* 渐变文字样式 */
+    /* 背景遮罩，让文字更清晰 */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* 替换原有background-color，添加浅蓝紫渐变+透明度 */
+      background: linear-gradient(90deg, rgba(180, 220, 255, 0.3), rgba(220, 180, 255, 0.3));
+      background-size: 400% 400%;
+      /* 渐变背景尺寸放大，用于动画移动 */
+      animation: maskGradient 8s ease infinite;
+      /* 绑定动画，8秒循环 */
+      z-index: -1;
+    }
+
+    /* 隐藏的背景图更换按钮 - 只有你知道双击空白处显示 */
+    #bgChangeBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4299e1;
+      color: white;
+      cursor: pointer;
+      display: none;
+      z-index: 999;
+    }
+
+    #bgChangeBtn:hover {
+      background-color: #3182ce;
+    }
+
+    /* 动态渐变标题 */
     .title {
-      font-size: 4rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 2rem;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      /* 蓝紫色渐变 */
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #ff6b6b);
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
-      transition: all 0.3s ease;
+      animation: gradientAnimation 10s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* 背景遮罩的动态渐变关键帧 */
+    @keyframes maskGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* 自我介绍卡片 */
+    .intro-card {
+      width: 80%;
+      max-width: 600px;
+      padding: 25px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .intro-card h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .intro-card p {
+      color: #555;
+      font-size: 1rem;
     }
 
     /* 点赞按钮样式 */
     .like-btn {
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      box-shadow: 0 4px 20px rgba(118, 75, 162, 0.4);
-      transition: all 0.3s ease;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
     }
 
     .like-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(118, 75, 162, 0.6);
-      background: linear-gradient(135deg, #5a6fe0, #6b4498);
-    }
-
-    .like-btn:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);
+      background: linear-gradient(135deg, #b2ebf2 0%, #e1bee7 100%);
     }
 
     .like-icon {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #ccc 0%, #999 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .like-icon.active {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ed4956 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .like-count {
-      min-width: 24px;
-      text-align: center;
-    }
-
-    /* 响应式适配 */
-    @media (max-width: 768px) {
-      .title {
-        font-size: 2.5rem;
-      }
-
-      .like-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-      }
+      color: #666;
+      font-weight: 500;
     }
   </style>
 </head>
 
 <body>
-  <!-- 主标题 -->
+  <!-- 隐藏的背景更换按钮 -->
+  <button id="bgChangeBtn">更换背景图</button>
+
+  <!-- 动态标题 -->
   <h1 class="title">Nice To Meet You</h1>
+
+  <!-- 自我介绍卡片 -->
+  <div class="intro-card">
+    <h3>关于我</h3>
+    <p>大家好！我是吴林洋 欢迎来到我的网站！ 我平时喜欢研究网络安全、Linux系统 买基金也是我的一项乐趣 也会用Pr剪辑视频、用Ps做图 闲暇时会制作一些小的网页项目</p>
+  </div>
 
   <!-- 点赞按钮 -->
   <button class="like-btn" id="likeBtn">
-    <span class="like-icon">❤️</span>
-    <span class="like-count" id="likeCount">0</span>
+    <span class="like-icon" id="likeIcon">❤️</span>
     <span>点赞</span>
+    <span class="like-count" id="likeCount">0</span>
   </button>
 
   <script>
-    // 点赞计数功能
+    // 1. 背景图更换功能 - 双击空白处显示按钮
+    const bgChangeBtn = document.getElementById('bgChangeBtn');
+    const body = document.body;
+
+    body.addEventListener('dblclick', (e) => {
+      // 点击的不是按钮和卡片时，才显示/隐藏
+      if (e.target !== bgChangeBtn && !e.target.closest('.intro-card') && !e.target.closest('.like-btn')) {
+        bgChangeBtn.style.display = bgChangeBtn.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+
+    bgChangeBtn.addEventListener('click', () => {
+      // 定义治愈系背景图URL数组，可无限添加
+      const bgList = [
+        'https://picsum.photos/id/1068/1920/1080', // 樱花小径
+        'https://picsum.photos/id/152/1920/1080', // 海边日落
+        'https://picsum.photos/id/137/1920/1080', // 森系溪流
+        'https://picsum.photos/id/164/1920/1080', // 奶油云朵
+        'https://picsum.photos/id/240/1920/1080'  // 风铃花
+      ];
+      // 随机选一个URL
+      const randomBg = bgList[Math.floor(Math.random() * bgList.length)];
+      body.style.backgroundImage = `url("${randomBg}")`;
+      alert('背景图已随机更换为治愈系风格！');
+      bgChangeBtn.style.display = 'none';
+    });
+
+    // 2. 点赞功能
     const likeBtn = document.getElementById('likeBtn');
+    const likeIcon = document.getElementById('likeIcon');
     const likeCount = document.getElementById('likeCount');
-    let count = 0;
+
+    let count = localStorage.getItem('likeNumber') ? Number(localStorage.getItem('likeNumber')) : 0;
+    let isLiked = localStorage.getItem('isLiked') === 'true';
+
+    likeCount.textContent = count;
+    if (isLiked) likeIcon.classList.add('active');
 
     likeBtn.addEventListener('click', () => {
-      count++;
-      likeCount.textContent = count;
-
-      // 点击动画效果
       likeBtn.style.transform = 'scale(1.1)';
-      setTimeout(() => {
-        likeBtn.style.transform = 'scale(1)';
-      }, 200);
+      setTimeout(() => likeBtn.style.transform = 'scale(1)', 200);
+
+      isLiked = !isLiked;
+      count = isLiked ? count + 1 : count - 1;
+
+      likeIcon.classList.toggle('active', isLiked);
+      likeCount.textContent = count;
+      localStorage.setItem('likeNumber', count);
+      localStorage.setItem('isLiked', isLiked);
     });
   </script>
 </body>
