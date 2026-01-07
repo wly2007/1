@@ -1,22 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '',
-      repo: ''
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nice To Meet You</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* 背景图配置处：替换 url 中的路径即可 */
+      background-image: url("你的背景图路径.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+    }
+
+    /* 渐变文字样式 */
+    .title {
+      font-size: 4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      /* 蓝紫色渐变 */
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    /* 点赞按钮样式 */
+    .like-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: 0 4px 20px rgba(118, 75, 162, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .like-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(118, 75, 162, 0.6);
+      background: linear-gradient(135deg, #5a6fe0, #6b4498);
+    }
+
+    .like-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 15px rgba(118, 75, 162, 0.4);
+    }
+
+    .like-icon {
+      font-size: 1.5rem;
+    }
+
+    .like-count {
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.5rem;
+      }
+
+      .like-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 主标题 -->
+  <h1 class="title">Nice To Meet You</h1>
+
+  <!-- 点赞按钮 -->
+  <button class="like-btn" id="likeBtn">
+    <span class="like-icon">❤️</span>
+    <span class="like-count" id="likeCount">0</span>
+    <span>点赞</span>
+  </button>
+
+  <script>
+    // 点赞计数功能
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCount = document.getElementById('likeCount');
+    let count = 0;
+
+    likeBtn.addEventListener('click', () => {
+      count++;
+      likeCount.textContent = count;
+
+      // 点击动画效果
+      likeBtn.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        likeBtn.style.transform = 'scale(1)';
+      }, 200);
+    });
   </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
+
 </html>
