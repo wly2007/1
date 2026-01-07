@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>吴林洋的个人网站</title>
   <style>
     * {
@@ -205,7 +205,6 @@
 
     .loading-text {
       color: #999;
-      /* 莫兰迪低饱和灰调 */
       font-size: 1.5rem;
       margin-bottom: 30px;
       letter-spacing: 2px;
@@ -213,15 +212,31 @@
       font-family: 'Courier New', monospace;
     }
 
-    /* 赛博朋克进度条样式 */
-    .progress-container {
+    /* 赛博朋克进度条样式 - 优化进度百分比位置 */
+    .progress-wrapper {
       width: 70%;
       max-width: 600px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .progress-percent {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #0ff;
+      font-family: 'Courier New', monospace;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .progress-container {
+      flex: 1;
       height: 25px;
       background: #111;
       border: 1px solid #0ff;
       border-radius: 0;
-      /* 长矩形 */
       overflow: hidden;
       position: relative;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 100, 100, 0.5);
@@ -235,19 +250,6 @@
       animation: progressGlow 1.5s linear infinite;
       position: relative;
       transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      /* 机械顿挫感 */
-    }
-
-    .progress-percent {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px #0ff;
-      font-family: 'Courier New', monospace;
     }
 
     @keyframes progressGlow {
@@ -301,42 +303,6 @@
       z-index: -1;
     }
 
-    /* 两侧可爱装饰图案 */
-    .side-decoration {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      z-index: 1;
-      animation: float 8s ease-in-out infinite;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .side-decoration.left {
-      left: 20px;
-    }
-
-    .side-decoration.right {
-      right: 20px;
-    }
-
-    /* 动态悬浮装饰 */
-    .float-decoration {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.7);
-      pointer-events: none;
-      z-index: 1;
-      animation: float 6s ease-in-out infinite;
-    }
-
     /* 标题样式 - 小写 */
     .title {
       font-size: 2.2rem;
@@ -345,7 +311,6 @@
       text-align: center;
       line-height: 1.2;
       text-transform: lowercase;
-      /* 强制小写 */
     }
 
     /* 可点击的you样式 */
@@ -384,6 +349,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .like-btn .heart {
@@ -610,6 +576,7 @@
       border: 2px solid #f8f9fa;
       transition: transform 0.3s ease;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .photo-item:hover {
@@ -622,33 +589,43 @@
       object-fit: cover;
     }
 
-    /* 照片预览弹窗 */
+    /* 照片预览弹窗 - 优化移动端体验 */
     .photo-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.95);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 9998;
+      padding: 20px;
+      touch-action: none;
     }
 
     .modal-content {
-      max-width: 90%;
-      max-height: 90%;
+      max-width: 95%;
+      max-height: 85%;
       border-radius: 12px;
+      object-fit: contain;
     }
 
     .close-modal {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: white;
       cursor: pointer;
+      z-index: 9999;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* 链接板块 */
@@ -684,6 +661,7 @@
       border-radius: 10px;
       text-align: center;
       transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .link-item:hover {
@@ -725,14 +703,15 @@
     #messageText {
       width: 100%;
       height: 90px;
-      padding: 10px;
-      font-size: 13px;
+      padding: 15px;
+      font-size: 14px;
       border: 2px solid var(--border-color);
       border-radius: 10px;
       resize: none;
       background-color: rgba(255, 255, 255, 0.95);
       line-height: 1.5;
       color: var(--text-color);
+      -webkit-tap-highlight-color: transparent;
     }
 
     .char-count {
@@ -750,14 +729,15 @@
 
     #saveMsgBtn {
       align-self: flex-end;
-      padding: 8px 20px;
-      font-size: 13px;
+      padding: 10px 25px;
+      font-size: 14px;
       background-color: #6ab04c;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     #saveMsgBtn:hover {
@@ -783,7 +763,7 @@
 
     /* 留言项样式 */
     .message-item {
-      padding: 10px 12px;
+      padding: 15px;
       border-bottom: 1px solid #f1f3f5;
       margin-bottom: 18px;
       position: relative;
@@ -805,34 +785,35 @@
     }
 
     .message-content {
-      font-size: 13px;
+      font-size: 14px;
       color: #495057;
       flex: 1;
       line-height: 1.5;
     }
 
     .message-time {
-      font-size: 10px;
+      font-size: 11px;
       color: #adb5bd;
-      margin-top: 3px;
+      margin-top: 5px;
     }
 
-    /* 左滑删除按钮 */
+    /* 左滑删除按钮 - 优化移动端体验 */
     .delete-btn {
       position: absolute;
-      right: -55px;
+      right: -60px;
       top: 0;
-      width: 55px;
+      width: 60px;
       height: 100%;
       background-color: #ff7675;
       color: white;
       border: none;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: right 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .message-item.swipe-active .delete-btn {
@@ -846,28 +827,30 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: white;
-      padding: 20px;
+      padding: 25px;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       z-index: 999;
       display: none;
-      min-width: 260px;
+      min-width: 280px;
+      width: 90%;
+      max-width: 350px;
     }
 
     #deletePasswordInput {
-      padding: 8px 12px;
-      font-size: 13px;
+      padding: 12px 15px;
+      font-size: 14px;
       border: 2px solid #e9ecef;
       border-radius: 8px;
       margin-right: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       width: 100%;
     }
 
     #deleteConfirmBtn,
     #deleteCancelBtn {
-      padding: 7px 16px;
-      font-size: 13px;
+      padding: 10px 20px;
+      font-size: 14px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -973,7 +956,7 @@
       }
     }
 
-    /* 响应式调整 - 优化移动端适配 */
+    /* 响应式调整 - 全面优化移动端适配 */
     @media (max-width: 768px) {
       #themeToggle {
         top: 15px;
@@ -984,6 +967,7 @@
 
       .title {
         font-size: 1.8rem;
+        padding: 0 10px;
       }
 
       .photo-grid {
@@ -996,23 +980,25 @@
       .resume-card {
         font-size: 0.85rem;
         padding: 15px;
-        width: 80%;
+        width: 90%;
       }
 
       body {
         padding: 60px 15px 80px;
-        gap: 35px;
+        gap: 30px;
       }
 
       .message-section,
       .links-section,
-      .update-log {
+      .update-log,
+      .music-player {
         width: 90%;
       }
 
       .skills-grid,
       .links-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
       }
 
       .avatar {
@@ -1022,27 +1008,74 @@
 
       .loading-text {
         font-size: 1.2rem;
+        text-align: center;
+        padding: 0 20px;
       }
 
       .welcome-text {
         font-size: 2.5rem;
+        text-align: center;
+        padding: 0 20px;
       }
 
       /* 移动端进度条调整 */
-      .progress-container {
+      .progress-wrapper {
         width: 85%;
         height: 20px;
       }
 
       .progress-percent {
         font-size: 0.8rem;
+        min-width: 35px;
       }
 
-      /* 移动端装饰图案调整 */
-      .side-decoration {
+      .progress-container {
+        height: 20px;
+      }
+
+      /* 移动端弹窗优化 */
+      .close-modal {
+        font-size: 2rem;
         width: 40px;
         height: 40px;
-        font-size: 1.5rem;
+      }
+
+      .modal-content {
+        max-height: 70%;
+      }
+
+      /* 移动端留言优化 */
+      #messageText {
+        padding: 12px;
+        font-size: 15px;
+        height: 120px;
+      }
+
+      .message-item {
+        padding: 12px;
+      }
+
+      .delete-btn {
+        width: 55px;
+        right: -55px;
+      }
+
+      /* 移动端按钮优化 */
+      #saveMsgBtn {
+        padding: 12px 30px;
+        font-size: 15px;
+        width: 100%;
+      }
+
+      /* 移动端二级验证优化 */
+      #secondPasswordInput {
+        width: 90%;
+        max-width: 300px;
+      }
+
+      #secondEnterBtn {
+        width: 90%;
+        max-width: 300px;
       }
     }
 
@@ -1062,6 +1095,7 @@
 
       .congrats-text {
         font-size: 2.5rem;
+        padding: 0 10px;
       }
 
       .loading-text {
@@ -1073,18 +1107,19 @@
       }
 
       /* 移动端进度条进一步调整 */
-      .progress-container {
+      .progress-wrapper {
         width: 90%;
         height: 18px;
+        gap: 10px;
       }
 
-      /* 移动端装饰图案进一步调整 */
-      .side-decoration {
-        width: 35px;
-        height: 35px;
-        font-size: 1.2rem;
-        left: 10px;
-        right: 10px;
+      /* 移动端留言板优化 */
+      .message-board {
+        padding: 15px;
+      }
+
+      .message-content {
+        font-size: 14px;
       }
     }
   </style>
@@ -1118,9 +1153,11 @@
   <!-- 加载动画层 -->
   <div id="loadingOverlay">
     <div class="loading-text">吴林洋的专属网站正在加载中</div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar">
-        <div class="progress-percent" id="progressPercent">0%</div>
+    <!-- 优化进度条结构 -->
+    <div class="progress-wrapper">
+      <div class="progress-percent" id="progressPercent">0%</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
       </div>
     </div>
     <div class="welcome-text" id="welcomeText">欢迎！</div>
@@ -1525,7 +1562,7 @@
 
           // 隐藏加载文字和进度条
           loadingText.style.display = 'none';
-          progressBar.parentElement.style.display = 'none';
+          document.querySelector('.progress-wrapper').style.display = 'none';
 
           // 显示欢迎文字（5秒渐变显现）
           welcomeText.style.opacity = 1;
@@ -1755,93 +1792,94 @@
       emptyTip.style.display = 'none';
     });
 
+    // 渲染留言 - 增加XSS防护
     function renderMessages() {
       messageBoard.innerHTML = '';
       messages.forEach((msg, index) => {
         const msgItem = document.createElement('div');
         msgItem.className = 'message-item';
         msgItem.dataset.index = index;
+
+        // XSS防护：转义特殊字符
+        const safeContent = msg.content
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+
         msgItem.innerHTML = `
           <div class="message-content">
-            ${msg.content}
+            ${safeContent}
             <div class="message-time">${msg.time}</div>
           </div>
           <button class="delete-btn">🗑️</button>
         `;
         messageBoard.appendChild(msgItem);
 
-        // 左滑事件
+        // 左滑事件 - 优化移动端体验
         let startX = 0;
+        let isSwiping = false;
+
+        // 触摸开始
         msgItem.addEventListener('touchstart', (e) => {
           startX = e.touches[0].clientX;
+          isSwiping = true;
+          // 阻止事件冒泡
+          e.stopPropagation();
         });
+
+        // 触摸移动
+        msgItem.addEventListener('touchmove', (e) => {
+          if (!isSwiping) return;
+          const currentX = e.touches[0].clientX;
+          const diffX = startX - currentX;
+          // 实时显示滑动距离
+          if (diffX > 0) {
+            msgItem.style.transform = `translateX(-${Math.min(diffX, 60)}px)`;
+          }
+          e.stopPropagation();
+        });
+
+        // 触摸结束
         msgItem.addEventListener('touchend', (e) => {
-          const endX = e.changedTouches[0].clientX;
-          if (startX - endX > 50) {
-            document.querySelectorAll('.message-item').forEach(item => {
-              if (item !== msgItem) item.classList.remove('swipe-active');
-            });
+          if (!isSwiping) return;
+          const currentX = e.changedTouches[0].clientX;
+          const diffX = startX - currentX;
+
+          // 判断是否滑动足够距离
+          if (diffX > 30) {
+            // 显示删除按钮
             msgItem.classList.add('swipe-active');
+            msgItem.style.transform = 'translateX(-60px)';
           } else {
+            // 复位
             msgItem.classList.remove('swipe-active');
+            msgItem.style.transform = 'translateX(0)';
           }
+
+          isSwiping = false;
+          e.stopPropagation();
         });
 
-        // 鼠标模拟左滑
-        let mouseStartX = 0;
-        msgItem.addEventListener('mousedown', (e) => {
-          mouseStartX = e.clientX;
-        });
-        msgItem.addEventListener('mouseup', (e) => {
-          const mouseEndX = e.clientX;
-          if (mouseStartX - mouseEndX > 50) {
-            document.querySelectorAll('.message-item').forEach(item => {
-              if (item !== msgItem) item.classList.remove('swipe-active');
-            });
-            msgItem.classList.add('swipe-active');
-          } else {
-            msgItem.classList.remove('swipe-active');
-          }
-        });
-
-        // 删除按钮点击事件
-        msgItem.querySelector('.delete-btn').addEventListener('click', () => {
+        // 点击删除按钮
+        const deleteBtn = msgItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
           deleteIndex = index;
           deletePasswordModal.style.display = 'block';
           deletePasswordInput.value = '';
           deleteErrorMsg.textContent = '';
           deleteLockTip.style.display = 'none';
         });
+
+        // 点击留言项其他区域复位
+        msgItem.addEventListener('click', () => {
+          msgItem.classList.remove('swipe-active');
+          msgItem.style.transform = 'translateX(0)';
+        });
       });
     }
-
-    // 保存留言
-    saveMsgBtn.addEventListener('click', () => {
-      const content = messageText.value.trim();
-      if (content === '') {
-        emptyTip.style.display = 'block';
-        return;
-      }
-
-      const now = new Date();
-      const timeStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-      messages.push({
-        content: content,
-        time: timeStr
-      });
-      localStorage.setItem('messages', JSON.stringify(messages));
-      messageText.value = '';
-      charNum.textContent = 0;
-      renderMessages();
-      createFloatDecoration('✍️', saveMsgBtn.getBoundingClientRect());
-    });
-
-    messageText.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        saveMsgBtn.click();
-      }
-    });
 
     // 删除密码锁定函数
     function lockDeletePasswordInput(duration = 60) {
@@ -1867,18 +1905,28 @@
       }, 1000);
     }
 
-    // 确认删除留言
+    // 取消删除
+    deleteCancelBtn.addEventListener('click', () => {
+      deletePasswordModal.style.display = 'none';
+      deleteIndex = -1;
+      deleteErrorMsg.textContent = '';
+    });
+
+    // 确认删除
     deleteConfirmBtn.addEventListener('click', () => {
       if (isDeletePasswordLocked) return;
 
-      const deletePassword = 'delete123'; // 删除密码
-      if (deletePasswordInput.value === deletePassword) {
-        messages.splice(deleteIndex, 1);
-        localStorage.setItem('messages', JSON.stringify(messages));
-        deletePasswordModal.style.display = 'none';
-        renderMessages();
-        deleteErrorMsg.textContent = '';
-        deletePasswordErrorCount = 0;
+      // 删除密码与访问密码一致
+      if (deletePasswordInput.value === correctPassword) {
+        if (deleteIndex >= 0 && deleteIndex < messages.length) {
+          messages.splice(deleteIndex, 1);
+          localStorage.setItem('messages', JSON.stringify(messages));
+          renderMessages();
+          deletePasswordModal.style.display = 'none';
+          deleteIndex = -1;
+          deleteErrorMsg.textContent = '';
+          deletePasswordErrorCount = 0;
+        }
       } else {
         deletePasswordErrorCount++;
         deleteErrorMsg.textContent = `密码错误（${deletePasswordErrorCount}/3），请再次输入`;
@@ -1891,115 +1939,205 @@
       }
     });
 
-    // 取消删除
-    deleteCancelBtn.addEventListener('click', () => {
-      deletePasswordModal.style.display = 'none';
-      deleteErrorMsg.textContent = '';
-    });
-
     // 删除密码输入框回车事件
     deletePasswordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !isDeletePasswordLocked) deleteConfirmBtn.click();
     });
 
-    // 7. 照片预览功能
+    // 保存留言
+    saveMsgBtn.addEventListener('click', () => {
+      const content = messageText.value.trim();
+      if (!content) {
+        emptyTip.style.display = 'block';
+        return;
+      }
+
+      const now = new Date();
+      const timeStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
+      messages.push({
+        content: content,
+        time: timeStr
+      });
+
+      localStorage.setItem('messages', JSON.stringify(messages));
+      renderMessages();
+      messageText.value = '';
+      charNum.textContent = '0';
+      emptyTip.style.display = 'none';
+    });
+
+    // 7. 照片预览功能 - 优化移动端点击区域
+    const photoItems = document.querySelectorAll('.photo-item');
     const photoModal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
-    const photoItems = document.querySelectorAll('.photo-item');
 
+    // 点击照片预览
     photoItems.forEach(item => {
+      // 同时监听click和touchend事件，优化移动端点击体验
       item.addEventListener('click', () => {
+        const imgSrc = item.getAttribute('data-img');
+        modalImg.src = imgSrc;
         photoModal.style.display = 'flex';
-        modalImg.src = item.getAttribute('data-img');
+        // 阻止事件冒泡，避免触发背景切换
+        event.stopPropagation();
+      });
+
+      // 移动端触摸结束事件，解决点击延迟问题
+      item.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        const imgSrc = item.getAttribute('data-img');
+        modalImg.src = imgSrc;
+        photoModal.style.display = 'flex';
       });
     });
 
+    // 关闭照片预览 - 优化点击区域
     closeModal.addEventListener('click', () => {
       photoModal.style.display = 'none';
     });
 
+    // 点击弹窗外区域关闭，优化移动端体验
     photoModal.addEventListener('click', (e) => {
       if (e.target === photoModal) {
         photoModal.style.display = 'none';
       }
     });
 
+    // 移动端触摸关闭优化
+    photoModal.addEventListener('touchend', (e) => {
+      if (e.target === photoModal) {
+        photoModal.style.display = 'none';
+      }
+    });
+
+    // ESC键关闭照片预览
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        photoModal.style.display = 'none';
+        deletePasswordModal.style.display = 'none';
+        secondPasswordModal.style.display = 'none';
+      }
+    });
+
     // 8. 访客计数器
-    const visitorNum = document.getElementById('visitorNum');
-    let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
+    function updateVisitorCount() {
+      const today = new Date().toISOString().split('T')[0];
+      const lastVisitDate = localStorage.getItem('lastVisitDate');
+      let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
 
-    // 检查是否是新访客（当天首次访问）
-    const lastVisitDate = localStorage.getItem('lastVisitDate');
-    const today = new Date().toISOString().split('T')[0];
+      // 如果是新的一天，重置计数器
+      if (lastVisitDate !== today) {
+        visitorCount = 1;
+        localStorage.setItem('lastVisitDate', today);
+      } else {
+        visitorCount++;
+      }
 
-    if (lastVisitDate !== today) {
-      visitorCount++;
       localStorage.setItem('visitorCount', visitorCount);
-      localStorage.setItem('lastVisitDate', today);
+      document.getElementById('visitorNum').textContent = visitorCount;
     }
 
-    visitorNum.textContent = visitorCount;
-
-    // 9. 创建悬浮装饰元素
-    function createFloatDecoration(text, position) {
+    // 9. 创建浮动装饰元素（点赞时）
+    function createFloatDecoration(text, rect) {
       const decoration = document.createElement('div');
+      decoration.textContent = text;
       decoration.style.position = 'absolute';
-      decoration.style.left = `${position.left + position.width / 2}px`;
-      decoration.style.top = `${position.top}px`;
+      decoration.style.left = `${rect.left + rect.width / 2}px`;
+      decoration.style.top = `${rect.top}px`;
       decoration.style.transform = 'translate(-50%, -50%)';
       decoration.style.fontSize = '1.2rem';
+      decoration.style.opacity = '1';
+      decoration.style.transition = 'all 1s ease';
       decoration.style.pointerEvents = 'none';
-      decoration.style.zIndex = '999';
-      decoration.style.animation = 'float 3s ease-in-out forwards';
-      decoration.textContent = text;
-
+      decoration.style.zIndex = '100';
       document.body.appendChild(decoration);
 
-      // 3秒后移除
+      // 动画效果
       setTimeout(() => {
-        decoration.remove();
-      }, 3000);
+        decoration.style.opacity = '0';
+        decoration.style.transform = 'translate(-50%, -150%) rotate(360deg)';
+      }, 10);
+
+      // 移除元素
+      setTimeout(() => {
+        document.body.removeChild(decoration);
+      }, 1000);
     }
 
-    // 10. 初始化趣味功能
+    // 初始化趣味功能
     function initFunFeatures() {
+      // 初始化访客计数器
+      updateVisitorCount();
       // 渲染留言
       renderMessages();
 
-      // 创建两侧装饰
-      const leftDecoration = document.createElement('div');
-      leftDecoration.className = 'side-decoration left';
-      leftDecoration.textContent = '⚡';
-      document.body.appendChild(leftDecoration);
+      // 移动端交互优化：禁用双击缩放
+      document.addEventListener('touchstart', function (e) {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
 
-      const rightDecoration = document.createElement('div');
-      rightDecoration.className = 'side-decoration right';
-      rightDecoration.textContent = '💡';
-      document.body.appendChild(rightDecoration);
-
-      // 随机位置创建悬浮装饰点
-      for (let i = 0; i < 10; i++) {
-        const floatDot = document.createElement('div');
-        floatDot.className = 'float-decoration';
-        floatDot.style.left = `${Math.random() * 100}vw`;
-        floatDot.style.top = `${Math.random() * 100}vh`;
-        floatDot.style.animationDelay = `${Math.random() * 5}s`;
-        document.body.appendChild(floatDot);
-      }
+      // 优化移动端滚动体验
+      document.body.style.webkitOverflowScrolling = 'touch';
     }
 
-    // 11. 音乐播放器自动播放（需要用户交互后）
-    document.addEventListener('click', () => {
-      const musicPlayer = document.getElementById('musicPlayer');
-      if (musicPlayer.paused) {
-        // 自动播放需要用户交互，这里只是准备播放状态
-        musicPlayer.play().catch(err => {
-          // 静默失败，不提示用户
-        });
+    // 页面加载完成后初始化
+    window.addEventListener('load', () => {
+      // 如果已经验证过密码（通过localStorage标记），直接初始化功能
+      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      if (isAuthenticated === 'true') {
+        passwordModal.style.display = 'none';
+        initFunFeatures();
+      } else {
+        // 显示密码验证层
+        passwordModal.style.display = 'flex';
       }
-    }, { once: true });
 
+      // 密码验证成功后标记
+      enterBtn.addEventListener('click', () => {
+        if (passwordInput.value === correctPassword) {
+          localStorage.setItem('isAuthenticated', 'true');
+        }
+      });
+    });
+
+    // 音乐播放器移动端优化
+    const musicPlayer = document.getElementById('musicPlayer');
+    if (musicPlayer) {
+      // 移动端自动播放提示
+      musicPlayer.addEventListener('error', () => {
+        alert('音频播放失败，请检查网络或更换浏览器');
+      });
+
+      // 移动端触摸播放优化
+      musicPlayer.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (musicPlayer.paused) {
+          musicPlayer.play().catch(err => {
+            console.log('自动播放失败，请手动点击播放:', err);
+          });
+        } else {
+          musicPlayer.pause();
+        }
+      });
+    }
+
+    // 全局点击关闭所有滑动状态
+    document.addEventListener('click', () => {
+      const activeItems = document.querySelectorAll('.message-item.swipe-active');
+      activeItems.forEach(item => {
+        item.classList.remove('swipe-active');
+        item.style.transform = 'translateX(0)';
+      });
+    });
+
+    // 优化移动端触摸滚动
+    document.addEventListener('touchmove', function (e) {
+      // 防止触摸滚动时触发其他事件
+    }, { passive: true });
     // 页面加载完成初始化
     window.addEventListener('load', () => {
       // 确保所有DOM元素加载完成
