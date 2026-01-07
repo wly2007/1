@@ -101,6 +101,92 @@
       font-size: 14px;
     }
 
+    /* 二级网站密码验证层（独立界面） */
+    #secondPasswordModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #6a89cc, #82ccdd, #b8e986);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #secondPasswordInput {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 300px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    #secondEnterBtn {
+      padding: 12px 40px;
+      font-size: 18px;
+      background-color: #fff;
+      color: #6a89cc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    #secondEnterBtn:hover {
+      background-color: #f0f8ff;
+      transform: scale(1.05);
+    }
+
+    #secondErrorMsg {
+      color: #fff;
+      margin-top: 15px;
+      font-size: 16px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #secondLockTip {
+      color: #fff;
+      margin-top: 10px;
+      font-size: 14px;
+      display: none;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 二级网站页面样式 */
+    #secondWebsite {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9998;
+    }
+
+    .congrats-text {
+      font-size: 4rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ffeb3b, #4caf50, #2196f3, #9c27b0, #ffeb3b);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientAnimation 8s ease infinite;
+      text-align: center;
+      padding: 20px;
+    }
+
     /* 页面主体样式 */
     body {
       display: flex;
@@ -142,18 +228,35 @@
       animation: float 6s ease-in-out infinite;
     }
 
-    /* 标题样式 */
+    /* 标题样式 - 取消动态渐变色，优先二级网站入口 */
     .title {
       font-size: 2.2rem;
       margin: 0;
-      background: linear-gradient(90deg, #6a89cc, #82ccdd, #b8e986, #f8c291, #6a89cc);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradientAnimation 10s ease infinite;
+      color: #6a89cc;
+      /* 固定颜色，取消渐变 */
       text-align: center;
       line-height: 1.2;
+    }
+
+    /* 可点击的You样式 - 完全伪装，和普通文字一致 */
+    .clickable-you {
+      color: inherit;
+      /* 继承父元素颜色 */
+      cursor: default;
+      /* 取消鼠标手型 */
+      text-decoration: none;
+      /* 取消下划线 */
+      font-weight: inherit;
+      /* 继承父元素字重 */
+      transition: none;
+      /* 取消hover动画 */
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 仅保留点击功能，视觉上无任何区别 */
+    .clickable-you:active {
+      cursor: pointer;
     }
 
     /* 访客计数器 */
@@ -384,7 +487,7 @@
       border-radius: 8px;
     }
 
-    /* 照片展示区 */
+    /* 照片展示区（调整为9张） */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -675,6 +778,13 @@
       font-size: 12px;
     }
 
+    #deleteLockTip {
+      color: orange;
+      margin-top: 8px;
+      font-size: 12px;
+      display: none;
+    }
+
     /* 更新日志 */
     .update-log {
       width: 85%;
@@ -813,6 +923,10 @@
         grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
         gap: 15px;
       }
+
+      .congrats-text {
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -829,14 +943,26 @@
     <div id="lockTip" style="color: orange; margin-top: 10px; font-size: 14px; display: none;">密码错误次数过多，功能已锁定1分钟</div>
   </div>
 
+  <!-- 二级网站密码验证层（独立界面） -->
+  <div id="secondPasswordModal">
+    <input type="password" id="secondPasswordInput" placeholder="请输入二级网站密码" maxlength="20">
+    <button id="secondEnterBtn">进入二级网站</button>
+    <div id="secondErrorMsg"></div>
+    <div id="secondLockTip">密码错误，功能已锁定30分钟</div>
+  </div>
+
+  <!-- 二级网站页面 -->
+  <div id="secondWebsite">
+    <div class="congrats-text">恭喜你</div>
+  </div>
+
   <!-- 留言删除密码验证层 -->
   <div id="deletePasswordModal">
     <input type="password" id="deletePasswordInput" placeholder="请输入删除密码" maxlength="20">
     <button id="deleteConfirmBtn">确认删除</button>
     <button id="deleteCancelBtn">取消</button>
     <div id="deleteErrorMsg"></div>
-    <div id="deleteLockTip" style="color: orange; margin-top: 8px; font-size: 12px; display: none;">密码错误次数过多，功能已锁定1分钟
-    </div>
+    <div id="deleteLockTip">密码错误次数过多，功能已锁定1分钟</div>
   </div>
 
   <!-- 照片预览弹窗 -->
@@ -845,8 +971,8 @@
     <img class="modal-content" id="modalImg">
   </div>
 
-  <!-- 标题 -->
-  <h1 class="title">Nice To Meet You</h1>
+  <!-- 标题 - 伪装式二级网站入口（You完全一致，Y大写） -->
+  <h1 class="title">Nice To Meet <span class="clickable-you">You</span></h1>
 
   <!-- 访客计数器 -->
   <div class="visitor-counter" id="visitorCounter">
@@ -946,7 +1072,7 @@
     <small style="color: #666;">点击播放按钮，聆听轻松的音乐</small>
   </div>
 
-  <!-- 照片展示区（精简到8张） -->
+  <!-- 照片展示区（调整为9张） -->
   <div class="photo-grid">
     <div class="photo-item" data-img="https://picsum.photos/id/1068/800/800"><img
         src="https://picsum.photos/id/1068/200/200" alt="照片1"></div>
@@ -964,6 +1090,8 @@
         src="https://picsum.photos/id/188/200/200" alt="照片7"></div>
     <div class="photo-item" data-img="https://picsum.photos/id/96/800/800"><img
         src="https://picsum.photos/id/96/200/200" alt="照片8"></div>
+    <div class="photo-item" data-img="https://picsum.photos/id/111/800/800"><img
+        src="https://picsum.photos/id/111/200/200" alt="照片9"></div>
   </div>
 
   <!-- 链接板块 -->
@@ -1010,17 +1138,20 @@
     </div>
   </div>
 
-  <!-- 更新日志 -->
+  <!-- 更新日志（清理敏感信息，仅记录操作） -->
   <div class="update-log">
     <div class="log-title">📝 网站更新日志</div>
     <div class="log-item">
-      <span class="log-date">2026-01-07</span>：新增个人简历卡片、主题切换功能、链接板块、更新日志；精简照片数量至8张；优化留言框字数限制；增加密码输错锁定机制；全面适配移动端与PC端。
+      <span class="log-date">2026-01-05</span>：网站初始版本上线，包含基础的自我介绍、点赞、留言板功能。
     </div>
     <div class="log-item">
       <span class="log-date">2026-01-06</span>：新增音乐播放器、技能展示卡片、访客计数器、照片预览功能；优化页面布局与交互效果。
     </div>
     <div class="log-item">
-      <span class="log-date">2026-01-05</span>：网站初始版本上线，包含基础的自我介绍、点赞、留言板功能。
+      <span class="log-date">2026-01-07</span>：新增个人简历卡片、主题切换功能、链接板块、更新日志；调整照片数量；优化留言框字数限制；增加密码输错锁定机制；全面适配移动端与PC端。
+    </div>
+    <div class="log-item">
+      <span class="log-date">2026-01-08</span>：调整照片数量适配手机端；新增二级网站入口（双击触发）；优化界面交互与伪装效果；清理敏感信息展示。
     </div>
   </div>
 
@@ -1030,6 +1161,10 @@
     let deletePasswordErrorCount = 0;
     let isPasswordLocked = false;
     let isDeletePasswordLocked = false;
+    // 二级网站密码相关变量
+    let isSecondPasswordLocked = false;
+    const secondCorrectPassword = 'wly007';
+    const lockDuration = 30 * 60; // 30分钟，单位秒
 
     // 1. 主题切换功能
     const themeToggle = document.getElementById('themeToggle');
@@ -1109,6 +1244,98 @@
 
     passwordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !isPasswordLocked) enterBtn.click();
+    });
+
+    // 3. 二级网站相关功能
+    // 3.1 标题You双击事件（伪装式，视觉无区别）
+    const clickableYou = document.querySelector('.clickable-you');
+    const secondPasswordModal = document.getElementById('secondPasswordModal');
+    const secondPasswordInput = document.getElementById('secondPasswordInput');
+    const secondEnterBtn = document.getElementById('secondEnterBtn');
+    const secondErrorMsg = document.getElementById('secondErrorMsg');
+    const secondLockTip = document.getElementById('secondLockTip');
+    const secondWebsite = document.getElementById('secondWebsite');
+
+    // 初始化检查二级密码锁定状态
+    const lockEndTime = localStorage.getItem('secondPasswordLockEndTime');
+    if (lockEndTime) {
+      const now = new Date().getTime() / 1000;
+      if (now < lockEndTime) {
+        lockSecondPasswordInput(lockEndTime - now);
+      } else {
+        localStorage.removeItem('secondPasswordLockEndTime');
+      }
+    }
+
+    // 双击You打开二级密码验证页（伪装式点击，无视觉提示）
+    clickableYou.addEventListener('dblclick', (e) => {
+      // 阻止双击默认行为（比如文字选中）
+      e.preventDefault();
+      if (!isSecondPasswordLocked) {
+        secondPasswordModal.style.display = 'flex';
+        secondPasswordInput.value = '';
+        secondErrorMsg.textContent = '';
+        secondLockTip.style.display = 'none';
+      } else {
+        secondErrorMsg.textContent = '功能已锁定30分钟';
+      }
+    });
+
+    // 禁止单击触发任何操作（增强伪装性）
+    clickableYou.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+
+    // 二级密码锁定函数
+    function lockSecondPasswordInput(remainingTime) {
+      isSecondPasswordLocked = true;
+      secondPasswordInput.disabled = true;
+      secondEnterBtn.disabled = true;
+      secondLockTip.style.display = 'block';
+
+      // 存储锁定结束时间到本地
+      const lockEndTime = new Date().getTime() / 1000 + remainingTime;
+      localStorage.setItem('secondPasswordLockEndTime', lockEndTime);
+
+      // 倒计时显示
+      let timeLeft = Math.ceil(remainingTime);
+      const timer = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        secondLockTip.textContent = `功能已锁定${minutes}分${seconds}秒`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          isSecondPasswordLocked = false;
+          secondPasswordInput.disabled = false;
+          secondEnterBtn.disabled = false;
+          secondLockTip.style.display = 'none';
+          localStorage.removeItem('secondPasswordLockEndTime');
+        }
+      }, 1000);
+    }
+
+    // 二级密码验证
+    secondEnterBtn.addEventListener('click', () => {
+      if (isSecondPasswordLocked) return;
+
+      if (secondPasswordInput.value === secondCorrectPassword) {
+        // 密码正确，进入二级网站
+        secondPasswordModal.style.display = 'none';
+        secondWebsite.style.display = 'flex';
+        secondErrorMsg.textContent = '';
+      } else {
+        // 密码错误，直接锁定30分钟
+        secondErrorMsg.textContent = '验证失败，功能将锁定30分钟';
+        secondPasswordInput.value = '';
+        lockSecondPasswordInput(lockDuration);
+      }
+    });
+
+    // 二级密码输入框回车事件
+    secondPasswordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !isSecondPasswordLocked) secondEnterBtn.click();
     });
 
     // 3. 背景图更换功能
@@ -1422,6 +1649,17 @@
     // 页面加载时初始化留言字数显示
     window.addEventListener('load', () => {
       charNum.textContent = messageText.value.length;
+      // 移除可能的默认焦点，解决"发送"黑框问题
+      document.activeElement.blur();
+    });
+
+    // 解决移动端/部分浏览器的"发送"黑框问题
+    document.addEventListener('focusin', (e) => {
+      // 只允许密码输入框、留言框获取焦点，其他元素自动失焦
+      const allowedElements = ['passwordInput', 'secondPasswordInput', 'deletePasswordInput', 'messageText'];
+      if (!allowedElements.includes(e.target.id)) {
+        e.target.blur();
+      }
     });
   </script>
 </body>
