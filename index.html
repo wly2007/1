@@ -187,6 +187,56 @@
       padding: 20px;
     }
 
+    /* 加载动画层样式 */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .loading-text {
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .progress-container {
+      width: 60%;
+      max-width: 500px;
+      height: 12px;
+      background-color: #333;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #6a89cc, #82ccdd, #b8e986);
+      border-radius: 6px;
+      transition: width 2s ease-in-out;
+    }
+
+    .welcome-text {
+      color: #fff;
+      font-size: 3rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 1s ease;
+      position: absolute;
+    }
+
     /* 页面主体样式 */
     body {
       display: flex;
@@ -201,6 +251,66 @@
       overflow-x: hidden;
       gap: 40px;
       transition: all 0.5s ease;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
+    }
+
+    /* 元素从上到下渐显动画 */
+    @keyframes fadeInFromTop {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 为每个板块添加延迟渐显 */
+    .title {
+      animation-delay: 0.2s;
+    }
+
+    .visitor-counter {
+      animation-delay: 0.4s;
+    }
+
+    .like-btn {
+      animation-delay: 0.6s;
+    }
+
+    .resume-card {
+      animation-delay: 0.8s;
+    }
+
+    .intro-card {
+      animation-delay: 1s;
+    }
+
+    .skills-card {
+      animation-delay: 1.2s;
+    }
+
+    .music-player {
+      animation-delay: 1.4s;
+    }
+
+    .photo-grid {
+      animation-delay: 1.6s;
+    }
+
+    .links-section {
+      animation-delay: 1.8s;
+    }
+
+    .message-section {
+      animation-delay: 2s;
+    }
+
+    .update-log {
+      animation-delay: 2.2s;
     }
 
     body::before {
@@ -228,33 +338,28 @@
       animation: float 6s ease-in-out infinite;
     }
 
-    /* 标题样式 - 取消动态渐变色，优先二级网站入口 */
+    /* 标题样式 - 修正You为大写Y */
     .title {
       font-size: 2.2rem;
       margin: 0;
       color: #6a89cc;
-      /* 固定颜色，取消渐变 */
       text-align: center;
       line-height: 1.2;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     /* 可点击的You样式 - 完全伪装，和普通文字一致 */
     .clickable-you {
       color: inherit;
-      /* 继承父元素颜色 */
       cursor: default;
-      /* 取消鼠标手型 */
       text-decoration: none;
-      /* 取消下划线 */
       font-weight: inherit;
-      /* 继承父元素字重 */
       transition: none;
-      /* 取消hover动画 */
       position: relative;
       z-index: 1;
     }
 
-    /* 仅保留点击功能，视觉上无任何区别 */
     .clickable-you:active {
       cursor: pointer;
     }
@@ -267,6 +372,8 @@
       padding: 8px 15px;
       border-radius: 20px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     /* 点赞按钮样式 */
@@ -280,6 +387,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .like-btn .heart {
@@ -343,6 +452,8 @@
       align-items: center;
       gap: 15px;
       color: var(--text-color);
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .avatar {
@@ -396,6 +507,8 @@
       gap: 6px;
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     /* 技能展示卡片 */
@@ -409,6 +522,8 @@
       color: var(--text-color);
       font-size: 0.9rem;
       text-align: center;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .skills-title {
@@ -473,6 +588,8 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .music-title {
@@ -495,6 +612,8 @@
       width: 85%;
       max-width: 800px;
       margin: 0;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .photo-item {
@@ -559,6 +678,8 @@
       flex-direction: column;
       align-items: center;
       gap: 15px;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .links-title {
@@ -609,6 +730,8 @@
       display: flex;
       flex-direction: column;
       gap: 25px;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .message-input {
@@ -796,6 +919,8 @@
       color: var(--text-color);
       font-size: 0.85rem;
       margin-top: 20px;
+      opacity: 0;
+      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .log-title {
@@ -908,6 +1033,14 @@
         width: 80px;
         height: 80px;
       }
+
+      .loading-text {
+        font-size: 1.2rem;
+      }
+
+      .welcome-text {
+        font-size: 2rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -927,6 +1060,14 @@
       .congrats-text {
         font-size: 2.5rem;
       }
+
+      .loading-text {
+        font-size: 1rem;
+      }
+
+      .welcome-text {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
@@ -945,15 +1086,24 @@
 
   <!-- 二级网站密码验证层（独立界面） -->
   <div id="secondPasswordModal">
-    <input type="password" id="secondPasswordInput" placeholder="请输入二级网站密码" maxlength="20">
-    <button id="secondEnterBtn">进入二级网站</button>
+    <input type="password" id="secondPasswordInput" placeholder="请输入验证密码" maxlength="20">
+    <button id="secondEnterBtn">验证进入</button>
     <div id="secondErrorMsg"></div>
-    <div id="secondLockTip">密码错误，功能已锁定30分钟</div>
+    <div id="secondLockTip">验证失败，功能将锁定30分钟</div>
   </div>
 
   <!-- 二级网站页面 -->
   <div id="secondWebsite">
     <div class="congrats-text">恭喜你</div>
+  </div>
+
+  <!-- 加载动画层 -->
+  <div id="loadingOverlay">
+    <div class="loading-text">吴林洋的专属网站正在加载中</div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="welcome-text" id="welcomeText">欢迎！</div>
   </div>
 
   <!-- 留言删除密码验证层 -->
@@ -971,7 +1121,7 @@
     <img class="modal-content" id="modalImg">
   </div>
 
-  <!-- 标题 - 伪装式二级网站入口（You完全一致，Y大写） -->
+  <!-- 标题 - 修正为大写Y的You -->
   <h1 class="title">Nice To Meet <span class="clickable-you">You</span></h1>
 
   <!-- 访客计数器 -->
@@ -1138,20 +1288,20 @@
     </div>
   </div>
 
-  <!-- 更新日志（清理敏感信息，仅记录操作） -->
+  <!-- 更新日志（清理敏感信息） -->
   <div class="update-log">
     <div class="log-title">📝 网站更新日志</div>
     <div class="log-item">
-      <span class="log-date">2026-01-05</span>：网站初始版本上线，包含基础的自我介绍、点赞、留言板功能。
+      <span class="log-date">2026-01-05</span>：网站初始版本上线，包含基础功能模块。
     </div>
     <div class="log-item">
-      <span class="log-date">2026-01-06</span>：新增音乐播放器、技能展示卡片、访客计数器、照片预览功能；优化页面布局与交互效果。
+      <span class="log-date">2026-01-06</span>：新增多媒体功能、数据统计模块、照片预览功能；优化页面布局与交互效果。
     </div>
     <div class="log-item">
-      <span class="log-date">2026-01-07</span>：新增个人简历卡片、主题切换功能、链接板块、更新日志；调整照片数量；优化留言框字数限制；增加密码输错锁定机制；全面适配移动端与PC端。
+      <span class="log-date">2026-01-07</span>：新增个人信息展示卡片、主题切换功能、链接导航板块；优化输入框限制规则；增加安全验证机制；全面适配多终端设备。
     </div>
     <div class="log-item">
-      <span class="log-date">2026-01-08</span>：调整照片数量适配手机端；新增二级网站入口（双击触发）；优化界面交互与伪装效果；清理敏感信息展示。
+      <span class="log-date">2026-01-08</span>：优化移动端适配效果；调整界面交互逻辑；优化视觉展示效果；清理非必要展示信息。
     </div>
   </div>
 
@@ -1161,7 +1311,7 @@
     let deletePasswordErrorCount = 0;
     let isPasswordLocked = false;
     let isDeletePasswordLocked = false;
-    // 二级网站密码相关变量
+    // 二级验证相关变量
     let isSecondPasswordLocked = false;
     const secondCorrectPassword = 'wly007';
     const lockDuration = 30 * 60; // 30分钟，单位秒
@@ -1197,6 +1347,10 @@
     const errorMsg = document.getElementById('errorMsg');
     const lockTip = document.getElementById('lockTip');
     const correctPassword = 'wly2007';
+    // 加载动画相关元素
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const progressBar = document.getElementById('progressBar');
+    const welcomeText = document.getElementById('welcomeText');
 
     // 密码锁定函数
     function lockPasswordInput(duration = 60) {
@@ -1222,13 +1376,44 @@
       }, 1000);
     }
 
+    // 加载动画执行函数
+    function runLoadingAnimation() {
+      // 显示加载层并渐变为黑色
+      loadingOverlay.style.display = 'flex';
+      setTimeout(() => {
+        loadingOverlay.style.opacity = 1;
+
+        // 进度条开始加载
+        setTimeout(() => {
+          progressBar.style.width = '100%';
+
+          // 进度条加载完成后显示欢迎文字
+          setTimeout(() => {
+            progressBar.style.opacity = 0;
+            welcomeText.style.opacity = 1;
+
+            // 欢迎文字显示4秒后关闭加载层
+            setTimeout(() => {
+              loadingOverlay.style.opacity = 0;
+              setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+                // 初始化网站功能
+                initFunFeatures();
+              }, 1500);
+            }, 4000);
+          }, 2000);
+        }, 500);
+      }, 100);
+    }
+
     enterBtn.addEventListener('click', () => {
       if (isPasswordLocked) return;
 
       if (passwordInput.value === correctPassword) {
         passwordModal.style.display = 'none';
-        initFunFeatures(); // 初始化趣味功能
-        passwordErrorCount = 0; // 重置错误次数
+        // 执行加载动画
+        runLoadingAnimation();
+        passwordErrorCount = 0;
         errorMsg.textContent = '';
       } else {
         passwordErrorCount++;
@@ -1246,8 +1431,7 @@
       if (e.key === 'Enter' && !isPasswordLocked) enterBtn.click();
     });
 
-    // 3. 二级网站相关功能
-    // 3.1 标题You双击事件（伪装式，视觉无区别）
+    // 3. 二级验证相关功能
     const clickableYou = document.querySelector('.clickable-you');
     const secondPasswordModal = document.getElementById('secondPasswordModal');
     const secondPasswordInput = document.getElementById('secondPasswordInput');
@@ -1256,7 +1440,7 @@
     const secondLockTip = document.getElementById('secondLockTip');
     const secondWebsite = document.getElementById('secondWebsite');
 
-    // 初始化检查二级密码锁定状态
+    // 初始化检查二级验证锁定状态
     const lockEndTime = localStorage.getItem('secondPasswordLockEndTime');
     if (lockEndTime) {
       const now = new Date().getTime() / 1000;
@@ -1267,9 +1451,8 @@
       }
     }
 
-    // 双击You打开二级密码验证页（伪装式点击，无视觉提示）
+    // 双击You触发验证（伪装式，视觉无区别）
     clickableYou.addEventListener('dblclick', (e) => {
-      // 阻止双击默认行为（比如文字选中）
       e.preventDefault();
       if (!isSecondPasswordLocked) {
         secondPasswordModal.style.display = 'flex';
@@ -1281,12 +1464,12 @@
       }
     });
 
-    // 禁止单击触发任何操作（增强伪装性）
+    // 禁止单击触发任何操作
     clickableYou.addEventListener('click', (e) => {
       e.preventDefault();
     });
 
-    // 二级密码锁定函数
+    // 二级验证锁定函数
     function lockSecondPasswordInput(remainingTime) {
       isSecondPasswordLocked = true;
       secondPasswordInput.disabled = true;
@@ -1316,29 +1499,27 @@
       }, 1000);
     }
 
-    // 二级密码验证
+    // 二级验证逻辑
     secondEnterBtn.addEventListener('click', () => {
       if (isSecondPasswordLocked) return;
 
       if (secondPasswordInput.value === secondCorrectPassword) {
-        // 密码正确，进入二级网站
         secondPasswordModal.style.display = 'none';
         secondWebsite.style.display = 'flex';
         secondErrorMsg.textContent = '';
       } else {
-        // 密码错误，直接锁定30分钟
         secondErrorMsg.textContent = '验证失败，功能将锁定30分钟';
         secondPasswordInput.value = '';
         lockSecondPasswordInput(lockDuration);
       }
     });
 
-    // 二级密码输入框回车事件
+    // 二级验证输入框回车事件
     secondPasswordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !isSecondPasswordLocked) secondEnterBtn.click();
     });
 
-    // 3. 背景图更换功能
+    // 4. 背景图更换功能
     const bgList = [
       'https://picsum.photos/id/186/1920/1080',
       'https://picsum.photos/id/177/1920/1080',
@@ -1354,7 +1535,7 @@
       }
     });
 
-    // 4. 点赞功能
+    // 5. 点赞功能
     const likeBtn = document.getElementById('likeBtn');
     const heartIcon = document.getElementById('heartIcon');
     const likeCountNum = document.getElementById('likeCountNum');
@@ -1373,7 +1554,7 @@
         likeCount++;
         heartIcon.classList.add('active');
         likeCountNum.classList.add('active');
-        createFloatDecoration('❤️', heartIcon.getBoundingClientRect()); // 点赞特效
+        createFloatDecoration('❤️', heartIcon.getBoundingClientRect());
       } else {
         likeCount--;
         heartIcon.classList.remove('active');
@@ -1397,7 +1578,7 @@
       }
     });
 
-    // 5. 留言板功能（带字数限制和空值提示）
+    // 6. 留言板功能
     const messageText = document.getElementById('messageText');
     const saveMsgBtn = document.getElementById('saveMsgBtn');
     const messageBoard = document.getElementById('messageBoard');
@@ -1416,12 +1597,10 @@
     messageText.addEventListener('input', () => {
       const length = messageText.value.length;
       charNum.textContent = length;
-      // 字数超限提示
       if (length > 200) {
         messageText.value = messageText.value.substring(0, 200);
         charNum.textContent = 200;
       }
-      // 隐藏空值提示
       emptyTip.style.display = 'none';
     });
 
@@ -1485,7 +1664,7 @@
       });
     }
 
-    // 保存留言（空值验证）
+    // 保存留言
     saveMsgBtn.addEventListener('click', () => {
       const content = messageText.value.trim();
       if (content === '') {
@@ -1503,7 +1682,7 @@
       messageText.value = '';
       charNum.textContent = 0;
       renderMessages();
-      createFloatDecoration('✍️', saveMsgBtn.getBoundingClientRect()); // 留言特效
+      createFloatDecoration('✍️', saveMsgBtn.getBoundingClientRect());
     });
 
     messageText.addEventListener('keydown', (e) => {
@@ -1517,7 +1696,6 @@
       deleteConfirmBtn.disabled = true;
       deleteLockTip.style.display = 'block';
 
-      // 倒计时解锁
       let timeLeft = duration;
       const timer = setInterval(() => {
         timeLeft--;
@@ -1534,7 +1712,7 @@
       }, 1000);
     }
 
-    // 确认删除留言（带输错锁定）
+    // 确认删除留言
     deleteConfirmBtn.addEventListener('click', () => {
       if (isDeletePasswordLocked) return;
 
@@ -1544,14 +1722,13 @@
         deletePasswordModal.style.display = 'none';
         renderMessages();
         deleteIndex = -1;
-        deletePasswordErrorCount = 0; // 重置错误次数
+        deletePasswordErrorCount = 0;
         deleteErrorMsg.textContent = '';
       } else {
         deletePasswordErrorCount++;
         deleteErrorMsg.textContent = `密码错误（${deletePasswordErrorCount}/3），请再次输入`;
         deletePasswordInput.value = '';
 
-        // 达到3次错误锁定
         if (deletePasswordErrorCount >= 3) {
           lockDeletePasswordInput();
         }
@@ -1567,7 +1744,7 @@
       if (e.key === 'Enter' && !isDeletePasswordLocked) deleteConfirmBtn.click();
     });
 
-    // 6. 照片预览功能
+    // 7. 照片预览功能
     const photoModal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
@@ -1577,7 +1754,7 @@
       item.addEventListener('click', () => {
         photoModal.style.display = 'flex';
         modalImg.src = item.dataset.img;
-        createFloatDecoration('📷', item.getBoundingClientRect()); // 照片点击特效
+        createFloatDecoration('📷', item.getBoundingClientRect());
       });
     });
 
@@ -1591,7 +1768,7 @@
       }
     });
 
-    // 7. 访客计数器
+    // 8. 访客计数器
     function updateVisitorCounter() {
       let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
       visitorCount++;
@@ -1599,7 +1776,7 @@
       document.getElementById('visitorNum').textContent = visitorCount;
     }
 
-    // 8. 动态悬浮装饰
+    // 9. 动态悬浮装饰
     function createFloatDecoration(text, rect) {
       const deco = document.createElement('div');
       deco.className = 'float-decoration';
@@ -1620,7 +1797,7 @@
       }, 3000);
     }
 
-    // 9. 初始化趣味功能
+    // 10. 初始化网站功能
     function initFunFeatures() {
       updateVisitorCounter();
       renderMessages();
@@ -1644,18 +1821,19 @@
           createFloatDecoration(randomIcon, { left: x, top: y, width: 10, height: 10 });
         }
       }, 5000);
+
+      // 显示页面主体（触发渐显动画）
+      body.style.opacity = 1;
     }
 
-    // 页面加载时初始化留言字数显示
+    // 页面加载时初始化
     window.addEventListener('load', () => {
       charNum.textContent = messageText.value.length;
-      // 移除可能的默认焦点，解决"发送"黑框问题
       document.activeElement.blur();
     });
 
-    // 解决移动端/部分浏览器的"发送"黑框问题
+    // 解决移动端/部分浏览器的焦点黑框问题
     document.addEventListener('focusin', (e) => {
-      // 只允许密码输入框、留言框获取焦点，其他元素自动失焦
       const allowedElements = ['passwordInput', 'secondPasswordInput', 'deletePasswordInput', 'messageText'];
       if (!allowedElements.includes(e.target.id)) {
         e.target.blur();
