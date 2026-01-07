@@ -200,8 +200,8 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      opacity: 0;
-      transition: opacity 1.5s ease;
+      opacity: 1;
+      /* 直接全黑，取消渐变 */
     }
 
     .loading-text {
@@ -223,9 +223,11 @@
     .progress-bar {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #6a89cc, #82ccdd, #b8e986);
+      background: #fff;
+      /* 改为纯白色进度条 */
       border-radius: 6px;
-      transition: width 2s ease-in-out;
+      transition: width 5s ease-in-out;
+      /* 进度条速度改为5秒 */
     }
 
     .welcome-text {
@@ -233,11 +235,12 @@
       font-size: 3rem;
       font-weight: bold;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 5s ease;
+      /* 欢迎文字显现速度改为5秒 */
       position: absolute;
     }
 
-    /* 页面主体样式 */
+    /* 页面主体样式 - 移除渐显动画 */
     body {
       display: flex;
       flex-direction: column;
@@ -251,66 +254,21 @@
       overflow-x: hidden;
       gap: 40px;
       transition: all 0.5s ease;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
+      opacity: 1;
+      /* 直接显示，取消初始透明 */
     }
 
-    /* 元素从上到下渐显动画 */
+    /* 移除所有渐显动画相关样式 */
     @keyframes fadeInFromTop {
       0% {
-        opacity: 0;
-        transform: translateY(-20px);
+        opacity: 1;
+        transform: translateY(0);
       }
 
       100% {
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    /* 为每个板块添加延迟渐显 */
-    .title {
-      animation-delay: 0.2s;
-    }
-
-    .visitor-counter {
-      animation-delay: 0.4s;
-    }
-
-    .like-btn {
-      animation-delay: 0.6s;
-    }
-
-    .resume-card {
-      animation-delay: 0.8s;
-    }
-
-    .intro-card {
-      animation-delay: 1s;
-    }
-
-    .skills-card {
-      animation-delay: 1.2s;
-    }
-
-    .music-player {
-      animation-delay: 1.4s;
-    }
-
-    .photo-grid {
-      animation-delay: 1.6s;
-    }
-
-    .links-section {
-      animation-delay: 1.8s;
-    }
-
-    .message-section {
-      animation-delay: 2s;
-    }
-
-    .update-log {
-      animation-delay: 2.2s;
     }
 
     body::before {
@@ -338,18 +296,16 @@
       animation: float 6s ease-in-out infinite;
     }
 
-    /* 标题样式 - 修正You为大写Y */
+    /* 标题样式 */
     .title {
       font-size: 2.2rem;
       margin: 0;
       color: #6a89cc;
       text-align: center;
       line-height: 1.2;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
-    /* 可点击的You样式 - 完全伪装，和普通文字一致 */
+    /* 可点击的You样式 */
     .clickable-you {
       color: inherit;
       cursor: default;
@@ -372,8 +328,6 @@
       padding: 8px 15px;
       border-radius: 20px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     /* 点赞按钮样式 */
@@ -387,8 +341,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .like-btn .heart {
@@ -452,8 +404,6 @@
       align-items: center;
       gap: 15px;
       color: var(--text-color);
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .avatar {
@@ -507,8 +457,6 @@
       gap: 6px;
       display: flex;
       flex-direction: column;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     /* 技能展示卡片 */
@@ -522,8 +470,6 @@
       color: var(--text-color);
       font-size: 0.9rem;
       text-align: center;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .skills-title {
@@ -588,8 +534,6 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .music-title {
@@ -612,8 +556,6 @@
       width: 85%;
       max-width: 800px;
       margin: 0;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .photo-item {
@@ -678,8 +620,6 @@
       flex-direction: column;
       align-items: center;
       gap: 15px;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .links-title {
@@ -730,8 +670,6 @@
       display: flex;
       flex-direction: column;
       gap: 25px;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .message-input {
@@ -919,8 +857,6 @@
       color: var(--text-color);
       font-size: 0.85rem;
       margin-top: 20px;
-      opacity: 0;
-      animation: fadeInFromTop 1.5s ease forwards;
     }
 
     .log-title {
@@ -1121,7 +1057,7 @@
     <img class="modal-content" id="modalImg">
   </div>
 
-  <!-- 标题 - 修正为大写Y的You -->
+  <!-- 标题 - 大写Y的You -->
   <h1 class="title">Nice To Meet <span class="clickable-you">You</span></h1>
 
   <!-- 访客计数器 -->
@@ -1378,32 +1314,30 @@
 
     // 加载动画执行函数
     function runLoadingAnimation() {
-      // 显示加载层并渐变为黑色
+      // 显示加载层（直接全黑）
       loadingOverlay.style.display = 'flex';
+
+      // 1秒后显示进度条并开始加载
       setTimeout(() => {
-        loadingOverlay.style.opacity = 1;
+        progressBar.style.width = '100%';
 
-        // 进度条开始加载
+        // 进度条加载完成（5秒）后隐藏进度条，显示欢迎文字
         setTimeout(() => {
-          progressBar.style.width = '100%';
+          // 隐藏进度条和加载文字
+          document.querySelector('.loading-text').style.display = 'none';
+          progressBar.style.display = 'none';
 
-          // 进度条加载完成后显示欢迎文字
+          // 显示欢迎文字（5秒渐变显现）
+          welcomeText.style.opacity = 1;
+
+          // 欢迎文字显示完成后关闭加载层
           setTimeout(() => {
-            progressBar.style.opacity = 0;
-            welcomeText.style.opacity = 1;
-
-            // 欢迎文字显示4秒后关闭加载层
-            setTimeout(() => {
-              loadingOverlay.style.opacity = 0;
-              setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                // 初始化网站功能
-                initFunFeatures();
-              }, 1500);
-            }, 4000);
-          }, 2000);
-        }, 500);
-      }, 100);
+            loadingOverlay.style.display = 'none';
+            // 初始化网站功能
+            initFunFeatures();
+          }, 5000); // 欢迎文字显示5秒
+        }, 5000); // 进度条加载5秒
+      }, 1000); // 先全黑1秒
     }
 
     enterBtn.addEventListener('click', () => {
@@ -1821,9 +1755,6 @@
           createFloatDecoration(randomIcon, { left: x, top: y, width: 10, height: 10 });
         }
       }, 5000);
-
-      // 显示页面主体（触发渐显动画）
-      body.style.opacity = 1;
     }
 
     // 页面加载时初始化
