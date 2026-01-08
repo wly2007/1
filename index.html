@@ -592,16 +592,17 @@
       border-radius: 8px;
     }
 
-    /* 照片展示区 */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 25px;
-      width: 85%;
-      max-width: 800px;
-      margin: 0;
+    /* 图片查看说明文字 */
+    .photo-view-tip {
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      margin: 10px 0 20px;
+      font-weight: bold;
     }
 
+    /* 照片项优化（取消单击指针，添加双击提示） */
     .photo-item {
       width: 100%;
       aspect-ratio: 1/1;
@@ -610,8 +611,26 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border: 2px solid #f8f9fa;
       transition: transform 0.3s ease;
-      cursor: pointer;
+      cursor: default;
+      /* 取消单击指针样式 */
       -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+
+    /* 照片底部双击提示（可选，增强引导） */
+    .photo-item::after {
+      content: "双击预览";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 4px 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 0.7rem;
+      text-align: center;
+      border-radius: 0 0 10px 10px;
+      pointer-events: none;
     }
 
     .photo-item:hover {
@@ -1299,26 +1318,39 @@
     <small style="color: #666;">点击播放按钮，聆听轻松的音乐</small>
   </div>
 
-  <!-- 照片展示区（调整为9张） -->
-  <div class="photo-grid">
-    <div class="photo-item" data-img="https://picsum.photos/id/1068/800/800"><img
-        src="https://picsum.photos/id/1068/200/200" alt="照片1"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/152/800/800"><img
-        src="https://picsum.photos/id/152/200/200" alt="照片2"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/137/800/800"><img
-        src="https://picsum.photos/id/137/200/200" alt="照片3"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/164/800/800"><img
-        src="https://picsum.photos/id/164/200/200" alt="照片4"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/240/800/800"><img
-        src="https://picsum.photos/id/240/200/200" alt="照片5"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/225/800/800"><img
-        src="https://picsum.photos/id/225/200/200" alt="照片6"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/188/800/800"><img
-        src="https://picsum.photos/id/188/200/200" alt="照片7"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/96/800/800"><img
-        src="https://picsum.photos/id/96/200/200" alt="照片8"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/111/800/800"><img
-        src="https://picsum.photos/id/111/200/200" alt="照片9"></div>
+  <!-- 照片展示区（调整为9张+双击查看说明） -->
+  <div>
+    <!-- 新增：双击查看说明文字 -->
+    <div class="photo-view-tip">双击查看图片</div>
+    <div class="photo-grid">
+      <div class="photo-item" data-img="https://picsum.photos/id/1068/800/800">
+        <img src="https://picsum.photos/id/1068/200/200" alt="照片1">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/152/800/800">
+        <img src="https://picsum.photos/id/152/200/200" alt="照片2">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/137/800/800">
+        <img src="https://picsum.photos/id/137/200/200" alt="照片3">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/164/800/800">
+        <img src="https://picsum.photos/id/164/200/200" alt="照片4">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/240/800/800">
+        <img src="https://picsum.photos/id/240/200/200" alt="照片5">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/225/800/800">
+        <img src="https://picsum.photos/id/225/200/200" alt="照片6">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/188/800/800">
+        <img src="https://picsum.photos/id/188/200/200" alt="照片7">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/96/800/800">
+        <img src="https://picsum.photos/id/96/200/200" alt="照片8">
+      </div>
+      <div class="photo-item" data-img="https://picsum.photos/id/111/800/800">
+        <img src="https://picsum.photos/id/111/200/200" alt="照片9">
+      </div>
+    </div>
   </div>
 
   <!-- 链接板块 -->
@@ -1994,24 +2026,36 @@
       if (e.key === 'Enter' && !isDeletePasswordLocked) deleteConfirmBtn.click();
     });
 
-    // 12. 照片预览功能（移动端优化）
+    // 12. 照片预览功能（仅双击触发）
     const photoModal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
     const photoItems = document.querySelectorAll('.photo-item');
 
     photoItems.forEach(item => {
-      // 移动端触摸+桌面端点击兼容
-      item.addEventListener('click', (e) => {
+      // 移除单击事件，仅保留双击触发（桌面端）
+      item.addEventListener('dblclick', (e) => {
         modalImg.src = item.getAttribute('data-img');
         photoModal.style.display = 'flex';
         e.stopPropagation();
       });
 
-      item.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        modalImg.src = item.getAttribute('data-img');
-        photoModal.style.display = 'flex';
+      // 移动端触摸双击兼容（300ms内连续触摸视为双击）
+      let touchStartTime = 0;
+      let touchCount = 0;
+      item.addEventListener('touchstart', (e) => {
+        const now = new Date().getTime();
+        if (now - touchStartTime < 300) {
+          // 双击触发
+          e.preventDefault();
+          modalImg.src = item.getAttribute('data-img');
+          photoModal.style.display = 'flex';
+          touchCount = 0;
+        } else {
+          // 重置单击计时
+          touchCount = 1;
+        }
+        touchStartTime = now;
       });
     });
 
