@@ -297,15 +297,38 @@
       box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
     }
 
-    .welcome-text {
-      color: #fff;
-      font-size: 4rem;
-      font-weight: bold;
+    /* 党徽图标样式 - 替代欢迎文字 */
+    .party-icon {
+      color: #e74c3c;
+      font-size: 8rem;
+      /* 较大尺寸 */
       opacity: 0;
-      transition: opacity 5s ease;
+      transition: all 5s ease-in-out;
       position: absolute;
-      text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
-      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 30px rgba(231, 76, 60, 0.8), 0 0 60px rgba(231, 76, 60, 0.5);
+      z-index: 10;
+      animation: grandAppearance 5s ease-in-out forwards;
+    }
+
+    /* 党徽隆重登场动画 */
+    @keyframes grandAppearance {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(0deg);
+        filter: brightness(0.5);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+        filter: brightness(1.2);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(360deg);
+        filter: brightness(1);
+      }
     }
 
     /* 页面主体样式 - 删除两侧装饰相关样式 */
@@ -592,7 +615,7 @@
       border-radius: 8px;
     }
 
-    /* 照片展示区 */
+    /* 照片展示区 - 新增双击提示文字 */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -610,8 +633,10 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border: 2px solid #f8f9fa;
       transition: transform 0.3s ease;
-      cursor: pointer;
+      cursor: default;
+      /* 取消点击指针 */
       -webkit-tap-highlight-color: transparent;
+      position: relative;
     }
 
     .photo-item:hover {
@@ -622,6 +647,21 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    /* 双击查看提示文字 */
+    .photo-tip {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.7rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 3px 0;
+      border-radius: 0 0 8px 8px;
+      pointer-events: none;
     }
 
     /* 照片预览弹窗 - 移动端优化 */
@@ -1045,8 +1085,9 @@
         font-size: 1.2rem;
       }
 
-      .welcome-text {
-        font-size: 2.5rem;
+      /* 党徽移动端尺寸调整 */
+      .party-icon {
+        font-size: 6rem;
       }
 
       /* 移动端进度条调整 */
@@ -1124,8 +1165,9 @@
         font-size: 1rem;
       }
 
-      .welcome-text {
-        font-size: 2rem;
+      /* 党徽移动端进一步调整 */
+      .party-icon {
+        font-size: 5rem;
       }
 
       .progress-wrapper {
@@ -1169,7 +1211,7 @@
     </div>
   </div>
 
-  <!-- 加载动画层 - 重构进度条结构 -->
+  <!-- 加载动画层 - 替换欢迎文字为党徽图标 -->
   <div id="loadingOverlay">
     <div class="loading-text">吴林洋的专属网站正在加载中</div>
     <div class="progress-wrapper">
@@ -1180,7 +1222,8 @@
         </div>
       </div>
     </div>
-    <div class="welcome-text" id="welcomeText">欢迎！</div>
+    <!-- 党徽图标（替代欢迎！文字） -->
+    <div class="party-icon" id="partyIcon">⚖️</div>
   </div>
 
   <!-- 留言删除密码验证层 -->
@@ -1299,26 +1342,44 @@
     <small style="color: #666;">点击播放按钮，聆听轻松的音乐</small>
   </div>
 
-  <!-- 照片展示区（调整为9张） -->
+  <!-- 照片展示区（调整为9张+双击提示） -->
   <div class="photo-grid">
-    <div class="photo-item" data-img="https://picsum.photos/id/1068/800/800"><img
-        src="https://picsum.photos/id/1068/200/200" alt="照片1"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/152/800/800"><img
-        src="https://picsum.photos/id/152/200/200" alt="照片2"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/137/800/800"><img
-        src="https://picsum.photos/id/137/200/200" alt="照片3"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/164/800/800"><img
-        src="https://picsum.photos/id/164/200/200" alt="照片4"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/240/800/800"><img
-        src="https://picsum.photos/id/240/200/200" alt="照片5"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/225/800/800"><img
-        src="https://picsum.photos/id/225/200/200" alt="照片6"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/188/800/800"><img
-        src="https://picsum.photos/id/188/200/200" alt="照片7"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/96/800/800"><img
-        src="https://picsum.photos/id/96/200/200" alt="照片8"></div>
-    <div class="photo-item" data-img="https://picsum.photos/id/111/800/800"><img
-        src="https://picsum.photos/id/111/200/200" alt="照片9"></div>
+    <div class="photo-item" data-img="https://picsum.photos/id/1068/800/800">
+      <img src="https://picsum.photos/id/1068/200/200" alt="照片1">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/152/800/800">
+      <img src="https://picsum.photos/id/152/200/200" alt="照片2">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/137/800/800">
+      <img src="https://picsum.photos/id/137/200/200" alt="照片3">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/164/800/800">
+      <img src="https://picsum.photos/id/164/200/200" alt="照片4">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/240/800/800">
+      <img src="https://picsum.photos/id/240/200/200" alt="照片5">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/225/800/800">
+      <img src="https://picsum.photos/id/225/200/200" alt="照片6">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/188/800/800">
+      <img src="https://picsum.photos/id/188/200/200" alt="照片7">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/96/800/800">
+      <img src="https://picsum.photos/id/96/200/200" alt="照片8">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
+    <div class="photo-item" data-img="https://picsum.photos/id/111/800/800">
+      <img src="https://picsum.photos/id/111/200/200" alt="照片9">
+      <div class="photo-tip">双击查看详细</div>
+    </div>
   </div>
 
   <!-- 链接板块 -->
@@ -1387,6 +1448,9 @@
     <div class="log-item">
       <span class="log-date">2026-01-10</span>：重构进度条为方块加载样式；删除两侧装饰图案；优化二级页面图片展示；强化移动端交互体验。
     </div>
+    <div class="log-item">
+      <span class="log-date">2026-01-11</span>：照片改为双击查看+添加提示文字；替换欢迎文字为党徽图标+隆重登场动画；调大进度条加载音效音量。
+    </div>
   </div>
 
   <script>
@@ -1400,7 +1464,6 @@
     const lockDuration = 30 * 60;
     let visitorHasLiked = localStorage.getItem('visitorHasLiked') || 'none';
     const correctPassword = 'wly2007';
-
     // 1. 主题切换功能
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
@@ -1431,7 +1494,7 @@
     }
     const allBlocks = progressBlocks.querySelectorAll('.progress-block');
 
-    // 3. 赛博朋克音效功能
+    // 3. 赛博朋克音效功能 - 调大进度条加载音效音量（gainNode值从0.1改为0.3）
     let audioContext;
     function initAudioContext() {
       if (!audioContext) {
@@ -1446,12 +1509,15 @@
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
 
+      // 调大所有音效音量（原0.1改为0.3）
+      const volume = 0.3;
+
       switch (type) {
         case 'start':
           oscillator.type = 'square';
           oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
           oscillator.frequency.exponentialRampToValueAtTime(1760, audioContext.currentTime + 0.05);
-          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+          gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
 
           const noise = audioContext.createBufferSource();
@@ -1460,7 +1526,7 @@
           for (let i = 0; i < noiseBuffer.length; i++) noiseData[i] = Math.random() * 2 - 1;
           noise.buffer = noiseBuffer;
           const noiseGain = audioContext.createGain();
-          noiseGain.gain.setValueAtTime(0.02, audioContext.currentTime);
+          noiseGain.gain.setValueAtTime(volume * 0.2, audioContext.currentTime);
           noise.connect(noiseGain);
           noiseGain.connect(audioContext.destination);
           noise.start();
@@ -1474,7 +1540,7 @@
           const freq = 220 + (progress * 440);
           oscillator.type = 'sawtooth';
           oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
-          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+          gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
           oscillator.start();
           oscillator.stop(audioContext.currentTime + 0.1);
@@ -1484,8 +1550,8 @@
           oscillator.type = 'triangle';
           oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
           oscillator.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 1);
-          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-          gainNode.gain.setValueAtTime(0.1, audioContext.currentTime + 0.8);
+          gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+          gainNode.gain.setValueAtTime(volume, audioContext.currentTime + 0.8);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 2);
 
           setTimeout(() => {
@@ -1493,7 +1559,7 @@
             const clickGain = audioContext.createGain();
             clickOsc.type = 'square';
             clickOsc.frequency.setValueAtTime(440, audioContext.currentTime);
-            clickGain.gain.setValueAtTime(0.1, audioContext.currentTime);
+            clickGain.gain.setValueAtTime(volume, audioContext.currentTime);
             clickGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
             clickOsc.connect(clickGain);
             clickGain.connect(audioContext.destination);
@@ -1506,8 +1572,7 @@
             for (let i = 0; i < endNoiseBuffer.length; i++) endNoiseData[i] = Math.random() * 2 - 1;
             endNoise.buffer = endNoiseBuffer;
             const endNoiseGain = audioContext.createGain();
-            endNoiseGain.gain.setValueAtTime(0.03, audioContext.currentTime);
-            endNoiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+            endNoiseGain.gain.setValueAtTime(volume * 0.3, audioContext.currentTime);
             endNoise.connect(endNoiseGain);
             endNoiseGain.connect(audioContext.destination);
             endNoise.start();
@@ -1516,6 +1581,37 @@
 
           oscillator.start();
           oscillator.stop(audioContext.currentTime + 2);
+          break;
+
+        // 新增党徽隆重登场音乐（铜管乐风格）
+        case 'partyGrand':
+          oscillator.type = 'trumpet'; // 铜管乐音色
+          oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+          oscillator.frequency.exponentialRampToValueAtTime(440, audioContext.currentTime + 1);
+          oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 2);
+          gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+          gainNode.gain.linearRampToValueAtTime(volume * 1.5, audioContext.currentTime + 0.5); // 更大音量
+          gainNode.gain.setValueAtTime(volume * 1.5, audioContext.currentTime + 2.5);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 4);
+
+          // 和声增强隆重感
+          setTimeout(() => {
+            const harmonyOsc = audioContext.createOscillator();
+            const harmonyGain = audioContext.createGain();
+            harmonyOsc.type = 'trumpet';
+            harmonyOsc.frequency.setValueAtTime(330, audioContext.currentTime); // 和声音高
+            harmonyGain.gain.setValueAtTime(0, audioContext.currentTime);
+            harmonyGain.gain.linearRampToValueAtTime(volume * 1, audioContext.currentTime + 0.3);
+            harmonyGain.gain.setValueAtTime(volume * 1, audioContext.currentTime + 2);
+            harmonyGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 3.5);
+            harmonyOsc.connect(harmonyGain);
+            harmonyGain.connect(audioContext.destination);
+            harmonyOsc.start();
+            harmonyOsc.stop(audioContext.currentTime + 3.5);
+          }, 500);
+
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + 4);
           break;
       }
     }
@@ -1560,7 +1656,7 @@
           }
         });
 
-        // 每10%播放音效
+        // 每10%播放音效（已调大音量）
         if (progress % 10 === 0 && progress > 0) {
           playCyberSound('progress', progress / 100);
         }
@@ -1573,13 +1669,15 @@
           document.querySelector('.loading-text').style.display = 'none';
           document.querySelector('.progress-wrapper').style.display = 'none';
 
-          // 显示欢迎文字
-          welcomeText.style.opacity = 1;
+          // 显示党徽图标+播放隆重登场音乐
+          const partyIcon = document.getElementById('partyIcon');
+          partyIcon.style.opacity = 1;
+          playCyberSound('partyGrand'); // 党徽登场音乐
 
           setTimeout(() => {
             loadingOverlay.style.display = 'none';
             initFunFeatures();
-          }, 5000);
+          }, 5000); // 保持原有5秒显示时间
         }
       }, 50);
     }
@@ -1768,6 +1866,7 @@
       localStorage.setItem('totalLikeCount', totalLikeCount);
       likeCountNum.textContent = totalLikeCount;
     });
+
     // 11. 留言板功能
     const messageText = document.getElementById('messageText');
     const saveMsgBtn = document.getElementById('saveMsgBtn');
@@ -1816,8 +1915,7 @@
         msgItem.addEventListener('touchstart', (e) => {
           startX = e.touches[0].clientX;
           isSwiping = true;
-          msgItem.style.transition
-            = 'none'; // 清除过渡，让滑动更跟手
+          msgItem.style.transition = 'none'; // 清除过渡，让滑动更跟手
         });
 
         // 触摸移动
@@ -1994,24 +2092,34 @@
       if (e.key === 'Enter' && !isDeletePasswordLocked) deleteConfirmBtn.click();
     });
 
-    // 12. 照片预览功能（移动端优化）
+    // 12. 照片预览功能（改为双击查看）
     const photoModal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
     const photoItems = document.querySelectorAll('.photo-item');
 
     photoItems.forEach(item => {
-      // 移动端触摸+桌面端点击兼容
-      item.addEventListener('click', (e) => {
+      // 移除单击事件，仅保留双击查看
+      item.addEventListener('dblclick', (e) => {
         modalImg.src = item.getAttribute('data-img');
         photoModal.style.display = 'flex';
         e.stopPropagation();
       });
 
+      // 移动端触摸双击兼容
+      let touchStartTime = 0;
+      item.addEventListener('touchstart', (e) => {
+        touchStartTime = new Date().getTime();
+      });
+
       item.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        modalImg.src = item.getAttribute('data-img');
-        photoModal.style.display = 'flex';
+        const touchEndTime = new Date().getTime();
+        // 300ms内连续触摸视为双击
+        if (touchEndTime - touchStartTime < 300) {
+          e.preventDefault();
+          modalImg.src = item.getAttribute('data-img');
+          photoModal.style.display = 'flex';
+        }
       });
     });
 
@@ -2082,8 +2190,6 @@
       // 渲染留言
       renderMessages();
 
-      // 移除原有两侧装饰创建代码，彻底删除网页两边图案
-
       // 随机悬浮装饰点（保留，不影响两侧图案）
       for (let i = 0; i < 10; i++) {
         const floatDot = document.createElement('div');
@@ -2123,7 +2229,6 @@
       if (passwordInput) {
         passwordInput.focus();
       }
-      // 移除「自动跳过密码」的错误逻辑，保留原有验证流程
     });
 
     // 18. 全局点击关闭所有滑动状态
