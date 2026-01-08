@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>吴林洋的个人网站</title>
   <style>
     * {
@@ -28,7 +28,6 @@
       font-size: 0.8rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #themeToggle:hover {
@@ -72,18 +71,17 @@
     }
 
     #passwordInput {
-      padding: 12px 20px;
+      padding: 10px 18px;
       font-size: 16px;
       border: 2px solid #ddd;
       border-radius: 8px;
       margin-bottom: 15px;
       width: 280px;
       text-align: center;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #enterBtn {
-      padding: 12px 35px;
+      padding: 10px 35px;
       font-size: 16px;
       background-color: #4299e1;
       color: white;
@@ -91,7 +89,6 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #enterBtn:hover {
@@ -129,7 +126,6 @@
       text-align: center;
       background: rgba(255, 255, 255, 0.9);
       color: #333;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #secondEnterBtn {
@@ -142,7 +138,6 @@
       cursor: pointer;
       transition: all 0.3s;
       font-weight: bold;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #secondEnterBtn:hover {
@@ -165,7 +160,7 @@
       text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
-    /* 二级网站页面样式 - 新增图片展示 */
+    /* 二级网站页面样式 */
     #secondWebsite {
       position: fixed;
       top: 0;
@@ -174,11 +169,9 @@
       height: 100%;
       background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
       display: none;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 9998;
-      padding: 20px;
     }
 
     .congrats-text {
@@ -192,28 +185,9 @@
       animation: gradientAnimation 8s ease infinite;
       text-align: center;
       padding: 20px;
-      margin-bottom: 30px;
     }
 
-    /* 二级页面图片容器 */
-    .second-img-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .second-img {
-      width: 45%;
-      min-width: 200px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      border: 3px solid #fff;
-    }
-
-    /* 加载动画层样式 - 赛博朋克方块进度条 */
+    /* 加载动画层样式 - 赛博朋克风格 */
     #loadingOverlay {
       position: fixed;
       top: 0;
@@ -231,70 +205,59 @@
 
     .loading-text {
       color: #999;
+      /* 莫兰迪低饱和灰调 */
       font-size: 1.5rem;
       margin-bottom: 30px;
       letter-spacing: 2px;
       text-transform: uppercase;
       font-family: 'Courier New', monospace;
-      text-align: center;
-      padding: 0 20px;
     }
 
-    /* 重构进度条样式 - 左侧百分比+方块加载 */
-    .progress-wrapper {
+    /* 赛博朋克进度条样式 */
+    .progress-container {
       width: 70%;
       max-width: 600px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .progress-percent {
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px #0ff;
-      font-family: 'Courier New', monospace;
-      min-width: 50px;
-      text-align: right;
-    }
-
-    .progress-container {
-      flex: 1;
-      height: 30px;
+      height: 25px;
       background: #111;
       border: 1px solid #0ff;
       border-radius: 0;
+      /* 长矩形 */
       overflow: hidden;
       position: relative;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 100, 100, 0.5);
-      display: flex;
-      align-items: center;
-      padding: 0 8px;
     }
 
-    /* 方块加载容器 */
-    .progress-blocks {
-      display: flex;
-      gap: 4px;
-      width: 100%;
-      height: 80%;
-    }
-
-    /* 加载方块样式 */
-    .progress-block {
+    .progress-bar {
+      width: 0%;
       height: 100%;
-      width: calc(100% / 50);
-      /* 50个方块均匀分布 */
-      background: #fff;
-      border-radius: 2px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      background: linear-gradient(90deg, #0ff, #f0f, #0ff);
+      background-size: 200% 100%;
+      animation: progressGlow 1.5s linear infinite;
+      position: relative;
+      transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      /* 机械顿挫感 */
     }
 
-    .progress-block.active {
-      opacity: 1;
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    .progress-percent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #0ff;
+      font-family: 'Courier New', monospace;
+    }
+
+    @keyframes progressGlow {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      100% {
+        background-position: 200% 0%;
+      }
     }
 
     .welcome-text {
@@ -308,7 +271,7 @@
       font-family: 'Courier New', monospace;
     }
 
-    /* 页面主体样式 - 删除两侧装饰相关样式 */
+    /* 页面主体样式 */
     body {
       display: flex;
       flex-direction: column;
@@ -323,7 +286,6 @@
       gap: 40px;
       transition: all 0.5s ease;
       opacity: 1;
-      -webkit-overflow-scrolling: touch;
     }
 
     body::before {
@@ -339,6 +301,42 @@
       z-index: -1;
     }
 
+    /* 两侧可爱装饰图案 */
+    .side-decoration {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      z-index: 1;
+      animation: float 8s ease-in-out infinite;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .side-decoration.left {
+      left: 20px;
+    }
+
+    .side-decoration.right {
+      right: 20px;
+    }
+
+    /* 动态悬浮装饰 */
+    .float-decoration {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      z-index: 1;
+      animation: float 6s ease-in-out infinite;
+    }
+
     /* 标题样式 - 小写 */
     .title {
       font-size: 2.2rem;
@@ -347,7 +345,7 @@
       text-align: center;
       line-height: 1.2;
       text-transform: lowercase;
-      padding: 0 10px;
+      /* 强制小写 */
     }
 
     /* 可点击的you样式 */
@@ -386,7 +384,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .like-btn .heart {
@@ -395,6 +392,7 @@
       position: relative;
     }
 
+    /* 心跳动画 */
     @keyframes heartBeat {
       0% {
         transform: scale(1);
@@ -423,6 +421,7 @@
       text-shadow: 0 0 10px rgba(255, 107, 157, 0.5), 0 0 20px rgba(255, 107, 157, 0.2);
     }
 
+    /* 点赞数样式 */
     .like-count {
       font-size: 1rem;
       color: var(--light-text);
@@ -592,7 +591,7 @@
       border-radius: 8px;
     }
 
-    /* 照片展示区 */
+    /* 照片展示区（调整为9张） */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -611,7 +610,6 @@
       border: 2px solid #f8f9fa;
       transition: transform 0.3s ease;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .photo-item:hover {
@@ -624,43 +622,33 @@
       object-fit: cover;
     }
 
-    /* 照片预览弹窗 - 移动端优化 */
+    /* 照片预览弹窗 */
     .photo-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.95);
+      background: rgba(0, 0, 0, 0.8);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 9998;
-      padding: 20px;
-      touch-action: none;
     }
 
     .modal-content {
-      max-width: 95%;
-      max-height: 85%;
+      max-width: 90%;
+      max-height: 90%;
       border-radius: 12px;
-      object-fit: contain;
     }
 
     .close-modal {
-      position: fixed;
+      position: absolute;
       top: 20px;
       right: 20px;
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: white;
       cursor: pointer;
-      z-index: 9999;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      -webkit-tap-highlight-color: transparent;
     }
 
     /* 链接板块 */
@@ -696,7 +684,6 @@
       border-radius: 10px;
       text-align: center;
       transition: all 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .link-item:hover {
@@ -718,7 +705,7 @@
       font-size: 1.5rem;
     }
 
-    /* 留言板区域 - 移动端优化 */
+    /* 留言板区域 */
     .message-section {
       width: 85%;
       max-width: 750px;
@@ -737,16 +724,15 @@
 
     #messageText {
       width: 100%;
-      height: 120px;
-      padding: 15px;
-      font-size: 14px;
+      height: 90px;
+      padding: 10px;
+      font-size: 13px;
       border: 2px solid var(--border-color);
       border-radius: 10px;
       resize: none;
       background-color: rgba(255, 255, 255, 0.95);
       line-height: 1.5;
       color: var(--text-color);
-      -webkit-tap-highlight-color: transparent;
     }
 
     .char-count {
@@ -764,15 +750,14 @@
 
     #saveMsgBtn {
       align-self: flex-end;
-      padding: 10px 25px;
-      font-size: 14px;
+      padding: 8px 20px;
+      font-size: 13px;
       background-color: #6ab04c;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #saveMsgBtn:hover {
@@ -785,6 +770,7 @@
       display: none;
     }
 
+    /* 讨论区样式 */
     .message-board {
       width: 100%;
       background-color: rgba(255, 255, 255, 0.95);
@@ -795,9 +781,9 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    /* 留言项样式 - 移动端左滑优化 */
+    /* 留言项样式 */
     .message-item {
-      padding: 15px;
+      padding: 10px 12px;
       border-bottom: 1px solid #f1f3f5;
       margin-bottom: 18px;
       position: relative;
@@ -807,7 +793,6 @@
       border-radius: 8px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      touch-action: pan-y;
     }
 
     .message-item:hover {
@@ -820,77 +805,73 @@
     }
 
     .message-content {
-      font-size: 14px;
+      font-size: 13px;
       color: #495057;
       flex: 1;
       line-height: 1.5;
     }
 
     .message-time {
-      font-size: 11px;
+      font-size: 10px;
       color: #adb5bd;
-      margin-top: 5px;
+      margin-top: 3px;
     }
 
+    /* 左滑删除按钮 */
     .delete-btn {
       position: absolute;
-      right: -60px;
+      right: -55px;
       top: 0;
-      width: 60px;
+      width: 55px;
       height: 100%;
       background-color: #ff7675;
       color: white;
       border: none;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: right 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .message-item.swipe-active .delete-btn {
       right: 0;
     }
 
-    /* 删除密码验证层 - 移动端适配 */
+    /* 删除密码验证层 */
     #deletePasswordModal {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       z-index: 999;
       display: none;
-      min-width: 280px;
-      width: 90%;
-      max-width: 350px;
+      min-width: 260px;
     }
 
     #deletePasswordInput {
-      padding: 12px 15px;
-      font-size: 14px;
+      padding: 8px 12px;
+      font-size: 13px;
       border: 2px solid #e9ecef;
       border-radius: 8px;
       margin-right: 8px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       width: 100%;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #deleteConfirmBtn,
     #deleteCancelBtn {
-      padding: 10px 20px;
-      font-size: 14px;
+      padding: 7px 16px;
+      font-size: 13px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       margin: 0 4px;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #deleteConfirmBtn {
@@ -992,7 +973,7 @@
       }
     }
 
-    /* 响应式调整 - 全面优化移动端 */
+    /* 响应式调整 - 优化移动端适配 */
     @media (max-width: 768px) {
       #themeToggle {
         top: 15px;
@@ -1015,25 +996,23 @@
       .resume-card {
         font-size: 0.85rem;
         padding: 15px;
-        width: 90%;
+        width: 80%;
       }
 
       body {
         padding: 60px 15px 80px;
-        gap: 30px;
+        gap: 35px;
       }
 
       .message-section,
       .links-section,
-      .update-log,
-      .music-player {
+      .update-log {
         width: 90%;
       }
 
       .skills-grid,
       .links-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
       }
 
       .avatar {
@@ -1050,54 +1029,20 @@
       }
 
       /* 移动端进度条调整 */
-      .progress-wrapper {
+      .progress-container {
         width: 85%;
-        gap: 10px;
+        height: 20px;
       }
 
       .progress-percent {
-        font-size: 1rem;
-        min-width: 40px;
+        font-size: 0.8rem;
       }
 
-      .progress-container {
-        height: 25px;
-      }
-
-      /* 移动端弹窗优化 */
-      .close-modal {
-        font-size: 2rem;
+      /* 移动端装饰图案调整 */
+      .side-decoration {
         width: 40px;
         height: 40px;
-      }
-
-      .modal-content {
-        max-height: 70%;
-      }
-
-      /* 移动端留言优化 */
-      #messageText {
-        height: 150px;
-      }
-
-      .message-item {
-        padding: 12px;
-      }
-
-      .delete-btn {
-        width: 55px;
-        right: -55px;
-      }
-
-      /* 移动端按钮优化 */
-      #saveMsgBtn {
-        width: 100%;
-      }
-
-      /* 二级页面图片适配 */
-      .second-img {
-        width: 80%;
-        min-width: 150px;
+        font-size: 1.5rem;
       }
     }
 
@@ -1117,7 +1062,6 @@
 
       .congrats-text {
         font-size: 2.5rem;
-        padding: 0 10px;
       }
 
       .loading-text {
@@ -1128,12 +1072,19 @@
         font-size: 2rem;
       }
 
-      .progress-wrapper {
+      /* 移动端进度条进一步调整 */
+      .progress-container {
         width: 90%;
+        height: 18px;
       }
 
-      .second-img {
-        width: 90%;
+      /* 移动端装饰图案进一步调整 */
+      .side-decoration {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+        left: 10px;
+        right: 10px;
       }
     }
   </style>
@@ -1159,25 +1110,17 @@
     <div id="secondLockTip">验证失败，功能将锁定30分钟</div>
   </div>
 
-  <!-- 二级网站页面 - 新增图片展示 -->
+  <!-- 二级网站页面 -->
   <div id="secondWebsite">
     <div class="congrats-text">恭喜你</div>
-    <div class="second-img-container">
-      <!-- 临时占位图片，后续可替换 -->
-      <img src="https://picsum.photos/id/237/800/600" alt="二级页面图片1" class="second-img">
-      <img src="https://picsum.photos/id/1025/800/600" alt="二级页面图片2" class="second-img">
-    </div>
   </div>
 
-  <!-- 加载动画层 - 重构进度条结构 -->
+  <!-- 加载动画层 -->
   <div id="loadingOverlay">
     <div class="loading-text">吴林洋的专属网站正在加载中</div>
-    <div class="progress-wrapper">
-      <div class="progress-percent" id="progressPercent">0%</div>
-      <div class="progress-container">
-        <div class="progress-blocks" id="progressBlocks">
-          <!-- 50个加载方块，JS动态生成 -->
-        </div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-percent" id="progressPercent">0%</div>
       </div>
     </div>
     <div class="welcome-text" id="welcomeText">欢迎！</div>
@@ -1384,30 +1327,31 @@
     <div class="log-item">
       <span class="log-date">2026-01-09</span>：升级赛博朋克风格加载动画；优化点赞计数逻辑；新增两侧装饰元素；更新个人信息为电力相关专业；优化移动端适配。
     </div>
-    <div class="log-item">
-      <span class="log-date">2026-01-10</span>：重构进度条为方块加载样式；删除两侧装饰图案；优化二级页面图片展示；强化移动端交互体验。
-    </div>
   </div>
 
   <script>
-    // 全局变量
+    // 全局变量 - 密码错误次数与锁定状态
     let passwordErrorCount = 0;
     let deletePasswordErrorCount = 0;
     let isPasswordLocked = false;
     let isDeletePasswordLocked = false;
+    // 二级验证相关变量
     let isSecondPasswordLocked = false;
     const secondCorrectPassword = 'wly007';
-    const lockDuration = 30 * 60;
-    let visitorHasLiked = localStorage.getItem('visitorHasLiked') || 'none';
-    const correctPassword = 'wly2007';
+    const lockDuration = 30 * 60; // 30分钟，单位秒
+    // 点赞计数相关
+    let visitorHasLiked = localStorage.getItem('visitorHasLiked') || 'none'; // none:未操作, like:点赞, unlike:取消
 
     // 1. 主题切换功能
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
+
+    // 初始化主题（优先本地存储）
     const savedTheme = localStorage.getItem('websiteTheme') || 'light-theme';
     body.className = savedTheme;
     themeToggle.textContent = savedTheme === 'light-theme' ? '切换暗黑主题 🌙' : '切换亮色主题 ☀️';
 
+    // 切换主题
     themeToggle.addEventListener('click', () => {
       if (body.classList.contains('light-theme')) {
         body.classList.remove('light-theme');
@@ -1422,16 +1366,21 @@
       }
     });
 
-    // 2. 进度条初始化 - 生成50个加载方块
-    const progressBlocks = document.getElementById('progressBlocks');
-    for (let i = 0; i < 50; i++) {
-      const block = document.createElement('div');
-      block.className = 'progress-block';
-      progressBlocks.appendChild(block);
-    }
-    const allBlocks = progressBlocks.querySelectorAll('.progress-block');
+    // 2. 页面访问密码验证（带输错锁定）
+    const passwordModal = document.getElementById('passwordModal');
+    const passwordInput = document.getElementById('passwordInput');
+    const enterBtn = document.getElementById('enterBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const lockTip = document.getElementById('lockTip');
+    const correctPassword = 'wly2007';
+    // 加载动画相关元素
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
+    const welcomeText = document.getElementById('welcomeText');
+    const loadingText = document.querySelector('.loading-text');
 
-    // 3. 赛博朋克音效功能
+    // 创建音频上下文用于赛博朋克音效
     let audioContext;
     function initAudioContext() {
       if (!audioContext) {
@@ -1439,48 +1388,56 @@
       }
     }
 
+    // 生成赛博朋克风格音效
     function playCyberSound(type, progress = 0) {
       initAudioContext();
+
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
+
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
 
+      // 根据不同类型设置音效参数
       switch (type) {
-        case 'start':
+        case 'start': // 启动音：短促高频金属音+电流杂音
           oscillator.type = 'square';
           oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
           oscillator.frequency.exponentialRampToValueAtTime(1760, audioContext.currentTime + 0.05);
           gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
 
+          // 添加电流杂音
           const noise = audioContext.createBufferSource();
           const noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
           const noiseData = noiseBuffer.getChannelData(0);
-          for (let i = 0; i < noiseBuffer.length; i++) noiseData[i] = Math.random() * 2 - 1;
+          for (let i = 0; i < noiseBuffer.length; i++) {
+            noiseData[i] = Math.random() * 2 - 1;
+          }
           noise.buffer = noiseBuffer;
           const noiseGain = audioContext.createGain();
           noiseGain.gain.setValueAtTime(0.02, audioContext.currentTime);
           noise.connect(noiseGain);
           noiseGain.connect(audioContext.destination);
-          noise.start();
+          noise.start(audioContext.currentTime);
           noise.stop(audioContext.currentTime + 0.1);
 
           oscillator.start();
           oscillator.stop(audioContext.currentTime + 0.2);
           break;
 
-        case 'progress':
-          const freq = 220 + (progress * 440);
+        case 'progress': // 进度递增音：顿挫金属敲击，音调随进度升高
+          const freq = 220 + (progress * 440); // 220Hz到660Hz
           oscillator.type = 'sawtooth';
           oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
           gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+
           oscillator.start();
           oscillator.stop(audioContext.currentTime + 0.1);
           break;
 
-        case 'complete':
+        case 'complete': // 完成音：长音金属冥想+电流收尾+机械锁扣
           oscillator.type = 'triangle';
           oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
           oscillator.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 1);
@@ -1488,6 +1445,7 @@
           gainNode.gain.setValueAtTime(0.1, audioContext.currentTime + 0.8);
           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 2);
 
+          // 机械锁扣声
           setTimeout(() => {
             const clickOsc = audioContext.createOscillator();
             const clickGain = audioContext.createGain();
@@ -1500,17 +1458,20 @@
             clickOsc.start();
             clickOsc.stop(audioContext.currentTime + 0.1);
 
+            // 电流收尾
             const endNoise = audioContext.createBufferSource();
             const endNoiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.2, audioContext.sampleRate);
             const endNoiseData = endNoiseBuffer.getChannelData(0);
-            for (let i = 0; i < endNoiseBuffer.length; i++) endNoiseData[i] = Math.random() * 2 - 1;
+            for (let i = 0; i < endNoiseBuffer.length; i++) {
+              endNoiseData[i] = Math.random() * 2 - 1;
+            }
             endNoise.buffer = endNoiseBuffer;
             const endNoiseGain = audioContext.createGain();
             endNoiseGain.gain.setValueAtTime(0.03, audioContext.currentTime);
             endNoiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
             endNoise.connect(endNoiseGain);
             endNoiseGain.connect(audioContext.destination);
-            endNoise.start();
+            endNoise.start(audioContext.currentTime);
             endNoise.stop(audioContext.currentTime + 0.2);
           }, 1800);
 
@@ -1520,13 +1481,14 @@
       }
     }
 
-    // 4. 密码锁定函数
+    // 密码锁定函数
     function lockPasswordInput(duration = 60) {
       isPasswordLocked = true;
       passwordInput.disabled = true;
       enterBtn.disabled = true;
       lockTip.style.display = 'block';
 
+      // 倒计时解锁
       let timeLeft = duration;
       const timer = setInterval(() => {
         timeLeft--;
@@ -1538,73 +1500,66 @@
           enterBtn.disabled = false;
           lockTip.style.display = 'none';
           passwordErrorCount = 0;
+          lockTip.textContent = '密码错误次数过多，功能已锁定1分钟';
         }
       }, 1000);
     }
 
-    // 5. 方块进度条加载逻辑
+    // 模拟进度条加载（带音效）
     function simulateProgress() {
       let progress = 0;
       const interval = setInterval(() => {
         progress += 1;
-        const progressPercent = document.getElementById('progressPercent');
+        progressBar.style.width = `${progress}%`;
         progressPercent.textContent = `${progress}%`;
 
-        // 计算需要激活的方块数量（50个方块对应100%）
-        const activeBlocks = Math.floor((progress / 100) * 50);
-        allBlocks.forEach((block, index) => {
-          if (index < activeBlocks) {
-            block.classList.add('active');
-          } else {
-            block.classList.remove('active');
-          }
-        });
-
-        // 每10%播放音效
+        // 每10%播放进度音效
         if (progress % 10 === 0 && progress > 0) {
           playCyberSound('progress', progress / 100);
         }
 
         if (progress >= 100) {
           clearInterval(interval);
+          // 播放完成音效
           playCyberSound('complete');
 
           // 隐藏加载文字和进度条
-          document.querySelector('.loading-text').style.display = 'none';
-          document.querySelector('.progress-wrapper').style.display = 'none';
+          loadingText.style.display = 'none';
+          progressBar.parentElement.style.display = 'none';
 
-          // 显示欢迎文字
+          // 显示欢迎文字（5秒渐变显现）
           welcomeText.style.opacity = 1;
 
+          // 欢迎文字显示完成后关闭加载层
           setTimeout(() => {
             loadingOverlay.style.display = 'none';
+            // 初始化网站功能
             initFunFeatures();
-          }, 5000);
+          }, 5000); // 欢迎文字显示5秒
         }
-      }, 50);
+      }, 50); // 5秒加载完成（100*50ms=5000ms）
     }
 
-    // 6. 加载动画执行函数
+    // 加载动画执行函数
     function runLoadingAnimation() {
+      // 显示加载层
       loadingOverlay.style.display = 'flex';
+
+      // 播放启动音效
       playCyberSound('start');
+
+      // 1秒后开始模拟进度条加载
       setTimeout(() => {
         simulateProgress();
-      }, 1000);
+      }, 1000); // 先全黑1秒
     }
-
-    // 7. 密码验证逻辑
-    const passwordModal = document.getElementById('passwordModal');
-    const passwordInput = document.getElementById('passwordInput');
-    const enterBtn = document.getElementById('enterBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const lockTip = document.getElementById('lockTip');
 
     enterBtn.addEventListener('click', () => {
       if (isPasswordLocked) return;
 
       if (passwordInput.value === correctPassword) {
         passwordModal.style.display = 'none';
+        // 执行加载动画
         runLoadingAnimation();
         passwordErrorCount = 0;
         errorMsg.textContent = '';
@@ -1613,6 +1568,7 @@
         errorMsg.textContent = `密码错误（${passwordErrorCount}/3），请再次输入`;
         passwordInput.value = '';
 
+        // 达到3次错误锁定
         if (passwordErrorCount >= 3) {
           lockPasswordInput();
         }
@@ -1623,7 +1579,7 @@
       if (e.key === 'Enter' && !isPasswordLocked) enterBtn.click();
     });
 
-    // 8. 二级验证功能
+    // 3. 二级验证相关功能
     const clickableYou = document.querySelector('.clickable-you');
     const secondPasswordModal = document.getElementById('secondPasswordModal');
     const secondPasswordInput = document.getElementById('secondPasswordInput');
@@ -1632,6 +1588,7 @@
     const secondLockTip = document.getElementById('secondLockTip');
     const secondWebsite = document.getElementById('secondWebsite');
 
+    // 初始化检查二级验证锁定状态
     const lockEndTime = localStorage.getItem('secondPasswordLockEndTime');
     if (lockEndTime) {
       const now = new Date().getTime() / 1000;
@@ -1642,6 +1599,7 @@
       }
     }
 
+    // 双击you触发验证
     clickableYou.addEventListener('dblclick', (e) => {
       e.preventDefault();
       if (!isSecondPasswordLocked) {
@@ -1654,19 +1612,23 @@
       }
     });
 
+    // 禁止单击触发任何操作
     clickableYou.addEventListener('click', (e) => {
       e.preventDefault();
     });
 
+    // 二级验证锁定函数
     function lockSecondPasswordInput(remainingTime) {
       isSecondPasswordLocked = true;
       secondPasswordInput.disabled = true;
       secondEnterBtn.disabled = true;
       secondLockTip.style.display = 'block';
 
+      // 存储锁定结束时间到本地
       const lockEndTime = new Date().getTime() / 1000 + remainingTime;
       localStorage.setItem('secondPasswordLockEndTime', lockEndTime);
 
+      // 倒计时显示
       let timeLeft = Math.ceil(remainingTime);
       const timer = setInterval(() => {
         timeLeft--;
@@ -1685,7 +1647,7 @@
       }, 1000);
     }
 
-    // 二级验证逻辑 - 新增5秒后显示图片
+    // 二级验证逻辑
     secondEnterBtn.addEventListener('click', () => {
       if (isSecondPasswordLocked) return;
 
@@ -1693,17 +1655,6 @@
         secondPasswordModal.style.display = 'none';
         secondWebsite.style.display = 'flex';
         secondErrorMsg.textContent = '';
-
-        // 5秒后显示图片（初始隐藏图片，延迟显示）
-        const secondImgs = document.querySelectorAll('.second-img');
-        secondImgs.forEach(img => img.style.opacity = '0');
-
-        setTimeout(() => {
-          secondImgs.forEach(img => {
-            img.style.transition = 'opacity 1s ease';
-            img.style.opacity = '1';
-          });
-        }, 5000);
       } else {
         secondErrorMsg.textContent = '验证失败，功能将锁定30分钟';
         secondPasswordInput.value = '';
@@ -1711,11 +1662,12 @@
       }
     });
 
+    // 二级验证输入框回车事件
     secondPasswordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !isSecondPasswordLocked) secondEnterBtn.click();
     });
 
-    // 9. 背景图更换功能
+    // 4. 背景图更换功能
     const bgList = [
       'https://picsum.photos/id/186/1920/1080',
       'https://picsum.photos/id/177/1920/1080',
@@ -1731,12 +1683,14 @@
       }
     });
 
-    // 10. 点赞功能
+    // 5. 点赞功能（优化计数逻辑）
     const likeBtn = document.getElementById('likeBtn');
     const heartIcon = document.getElementById('heartIcon');
     const likeCountNum = document.getElementById('likeCountNum');
+    // 从本地存储获取总点赞数
     let totalLikeCount = parseInt(localStorage.getItem('totalLikeCount')) || 0;
 
+    // 初始化点赞状态
     likeCountNum.textContent = totalLikeCount;
     if (visitorHasLiked === 'like') {
       heartIcon.classList.add('active');
@@ -1744,20 +1698,26 @@
     }
 
     likeBtn.addEventListener('click', () => {
+      // 每个访客只能操作一次
       if (visitorHasLiked !== 'none') return;
 
+      // 切换点赞状态
       visitorHasLiked = 'like';
       totalLikeCount++;
       heartIcon.classList.add('active');
       likeCountNum.classList.add('active');
+
+      // 保存状态和计数
       localStorage.setItem('visitorHasLiked', visitorHasLiked);
       localStorage.setItem('totalLikeCount', totalLikeCount);
       likeCountNum.textContent = totalLikeCount;
+
       createFloatDecoration('❤️', heartIcon.getBoundingClientRect());
     });
 
     likeBtn.addEventListener('dblclick', (e) => {
       e.preventDefault();
+      // 每个访客只能操作一次
       if (visitorHasLiked !== 'none') return;
 
       visitorHasLiked = 'like';
@@ -1768,7 +1728,8 @@
       localStorage.setItem('totalLikeCount', totalLikeCount);
       likeCountNum.textContent = totalLikeCount;
     });
-    // 11. 留言板功能
+
+    // 6. 留言板功能
     const messageText = document.getElementById('messageText');
     const saveMsgBtn = document.getElementById('saveMsgBtn');
     const messageBoard = document.getElementById('messageBoard');
@@ -1783,6 +1744,7 @@
     let messages = JSON.parse(localStorage.getItem('messages')) || [];
     let deleteIndex = -1;
 
+    // 留言字数计数
     messageText.addEventListener('input', () => {
       const length = messageText.value.length;
       charNum.textContent = length;
@@ -1793,7 +1755,6 @@
       emptyTip.style.display = 'none';
     });
 
-    // 留言渲染 - 优化移动端左滑
     function renderMessages() {
       messageBoard.innerHTML = '';
       messages.forEach((msg, index) => {
@@ -1809,95 +1770,47 @@
         `;
         messageBoard.appendChild(msgItem);
 
-        // 移动端左滑优化
+        // 左滑事件
         let startX = 0;
-        let isSwiping = false;
-
         msgItem.addEventListener('touchstart', (e) => {
           startX = e.touches[0].clientX;
-          isSwiping = true;
-          msgItem.style.transition
-            = 'none'; // 清除过渡，让滑动更跟手
         });
-
-        // 触摸移动
-        msgItem.addEventListener('touchmove', (e) => {
-          if (!isSwiping) return;
-          const currentX = e.touches[0].clientX;
-          const diffX = startX - currentX;
-
-          // 仅允许向左滑动，限制最大滑动距离
-          if (diffX > 0) {
-            const translateX = Math.min(diffX, 60); // 最大左滑60px（删除按钮宽度）
-            msgItem.style.transform = `translateX(-${translateX}px)`;
-          } else {
-            msgItem.style.transform = 'translateX(0)';
-          }
-          e.stopPropagation();
-        });
-
-        // 触摸结束
         msgItem.addEventListener('touchend', (e) => {
-          if (!isSwiping) return;
-          const currentX = e.changedTouches[0].clientX;
-          const diffX = startX - currentX;
-
-          e.stopPropagation();
-          e.preventDefault();
-
-          // 滑动距离超过30px则显示删除按钮，否则复位
-          if (diffX > 30) {
+          const endX = e.changedTouches[0].clientX;
+          if (startX - endX > 50) {
+            document.querySelectorAll('.message-item').forEach(item => {
+              if (item !== msgItem) item.classList.remove('swipe-active');
+            });
             msgItem.classList.add('swipe-active');
-            msgItem.style.transform = 'translateX(-60px)';
-            msgItem.style.transition = 'transform 0.2s ease-out';
           } else {
             msgItem.classList.remove('swipe-active');
-            msgItem.style.transform = 'translateX(0)';
-            msgItem.style.transition = 'transform 0.15s ease-in';
           }
-
-          isSwiping = false;
-          // 防止点击穿透
-          setTimeout(() => {
-            isSwiping = false;
-          }, 100);
         });
 
-        // 鼠标模拟左滑（桌面端兼容）
+        // 鼠标模拟左滑
         let mouseStartX = 0;
         msgItem.addEventListener('mousedown', (e) => {
           mouseStartX = e.clientX;
         });
         msgItem.addEventListener('mouseup', (e) => {
           const mouseEndX = e.clientX;
-          const diffX = mouseStartX - mouseEndX;
-          if (diffX > 50) {
+          if (mouseStartX - mouseEndX > 50) {
             document.querySelectorAll('.message-item').forEach(item => {
               if (item !== msgItem) item.classList.remove('swipe-active');
             });
             msgItem.classList.add('swipe-active');
-            msgItem.style.transform = 'translateX(-60px)';
           } else {
             msgItem.classList.remove('swipe-active');
-            msgItem.style.transform = 'translateX(0)';
           }
         });
 
-        // 点击删除按钮
+        // 删除按钮点击事件
         msgItem.querySelector('.delete-btn').addEventListener('click', () => {
           deleteIndex = index;
           deletePasswordModal.style.display = 'block';
           deletePasswordInput.value = '';
           deleteErrorMsg.textContent = '';
           deleteLockTip.style.display = 'none';
-        });
-
-        // 点击留言区域其他地方复位
-        msgItem.addEventListener('click', () => {
-          if (msgItem.classList.contains('swipe-active')) {
-            msgItem.classList.remove('swipe-active');
-            msgItem.style.transform = 'translateX(0)';
-          }
         });
       });
     }
@@ -1911,21 +1824,18 @@
       }
 
       const now = new Date();
-      const timeStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+      const timeStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
       messages.push({
         content: content,
         time: timeStr
       });
-
       localStorage.setItem('messages', JSON.stringify(messages));
       messageText.value = '';
-      charNum.textContent = '0';
+      charNum.textContent = 0;
       renderMessages();
       createFloatDecoration('✍️', saveMsgBtn.getBoundingClientRect());
-      emptyTip.style.display = 'none';
     });
 
-    // 留言框回车提交（Shift+Enter换行）
     messageText.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -1940,6 +1850,7 @@
       deleteConfirmBtn.disabled = true;
       deleteLockTip.style.display = 'block';
 
+      // 倒计时解锁
       let timeLeft = duration;
       const timer = setInterval(() => {
         timeLeft--;
@@ -1962,20 +1873,18 @@
 
       const deletePassword = 'delete123'; // 删除密码
       if (deletePasswordInput.value === deletePassword) {
-        if (deleteIndex >= 0 && deleteIndex < messages.length) {
-          messages.splice(deleteIndex, 1);
-          localStorage.setItem('messages', JSON.stringify(messages));
-          renderMessages();
-          deletePasswordModal.style.display = 'none';
-          deleteIndex = -1;
-          deleteErrorMsg.textContent = '';
-          deletePasswordErrorCount = 0;
-        }
+        messages.splice(deleteIndex, 1);
+        localStorage.setItem('messages', JSON.stringify(messages));
+        deletePasswordModal.style.display = 'none';
+        renderMessages();
+        deleteErrorMsg.textContent = '';
+        deletePasswordErrorCount = 0;
       } else {
         deletePasswordErrorCount++;
         deleteErrorMsg.textContent = `密码错误（${deletePasswordErrorCount}/3），请再次输入`;
         deletePasswordInput.value = '';
 
+        // 达到3次错误锁定
         if (deletePasswordErrorCount >= 3) {
           lockDeletePasswordInput();
         }
@@ -1985,81 +1894,56 @@
     // 取消删除
     deleteCancelBtn.addEventListener('click', () => {
       deletePasswordModal.style.display = 'none';
-      deleteIndex = -1;
       deleteErrorMsg.textContent = '';
     });
 
-    // 删除密码输入框回车提交
+    // 删除密码输入框回车事件
     deletePasswordInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !isDeletePasswordLocked) deleteConfirmBtn.click();
     });
 
-    // 12. 照片预览功能（移动端优化）
+    // 7. 照片预览功能
     const photoModal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalImg');
     const closeModal = document.getElementById('closeModal');
     const photoItems = document.querySelectorAll('.photo-item');
 
     photoItems.forEach(item => {
-      // 移动端触摸+桌面端点击兼容
       item.addEventListener('click', () => {
-        modalImg.src = item.getAttribute('data-img');
         photoModal.style.display = 'flex';
-        e?.stopPropagation();
-      });
-
-      item.addEventListener('touchend', (e) => {
-        e.preventDefault();
         modalImg.src = item.getAttribute('data-img');
-        photoModal.style.display = 'flex';
       });
     });
 
-    // 关闭照片预览
     closeModal.addEventListener('click', () => {
       photoModal.style.display = 'none';
     });
 
-    // 点击弹窗外围关闭（移动端优化触摸区域）
     photoModal.addEventListener('click', (e) => {
       if (e.target === photoModal) {
         photoModal.style.display = 'none';
       }
     });
 
-    photoModal.addEventListener('touchend', (e) => {
-      if (e.target === photoModal) {
-        photoModal.style.display = 'none';
-      }
-    });
-
-    // ESC键关闭所有弹窗
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        photoModal.style.display = 'none';
-        deletePasswordModal.style.display = 'none';
-        secondPasswordModal.style.display = 'none';
-      }
-    });
-
-    // 13. 访客计数器
+    // 8. 访客计数器
     const visitorNum = document.getElementById('visitorNum');
     let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
+
+    // 检查是否是新访客（当天首次访问）
     const lastVisitDate = localStorage.getItem('lastVisitDate');
     const today = new Date().toISOString().split('T')[0];
 
-    // 当天首次访问更新计数
     if (lastVisitDate !== today) {
       visitorCount++;
       localStorage.setItem('visitorCount', visitorCount);
       localStorage.setItem('lastVisitDate', today);
     }
+
     visitorNum.textContent = visitorCount;
 
-    // 14. 悬浮装饰元素（点赞/留言时）
+    // 9. 创建悬浮装饰元素
     function createFloatDecoration(text, position) {
       const decoration = document.createElement('div');
-      decoration.textContent = text;
       decoration.style.position = 'absolute';
       decoration.style.left = `${position.left + position.width / 2}px`;
       decoration.style.top = `${position.top}px`;
@@ -2068,23 +1952,33 @@
       decoration.style.pointerEvents = 'none';
       decoration.style.zIndex = '999';
       decoration.style.animation = 'float 3s ease-in-out forwards';
-      decoration.style.color = text === '❤️' ? '#ff6b9d' : '#6ab04c';
+      decoration.textContent = text;
 
       document.body.appendChild(decoration);
 
+      // 3秒后移除
       setTimeout(() => {
         decoration.remove();
       }, 3000);
     }
 
-    // 15. 初始化趣味功能（删除两侧装饰相关代码）
+    // 10. 初始化趣味功能
     function initFunFeatures() {
       // 渲染留言
       renderMessages();
 
-      // 移除原有两侧装饰创建代码，彻底删除网页两边图案
+      // 创建两侧装饰
+      const leftDecoration = document.createElement('div');
+      leftDecoration.className = 'side-decoration left';
+      leftDecoration.textContent = '⚡';
+      document.body.appendChild(leftDecoration);
 
-      // 随机悬浮装饰点（保留，不影响两侧图案）
+      const rightDecoration = document.createElement('div');
+      rightDecoration.className = 'side-decoration right';
+      rightDecoration.textContent = '💡';
+      document.body.appendChild(rightDecoration);
+
+      // 随机位置创建悬浮装饰点
       for (let i = 0; i < 10; i++) {
         const floatDot = document.createElement('div');
         floatDot.className = 'float-decoration';
@@ -2095,56 +1989,24 @@
       }
     }
 
-    // 16. 音乐播放器移动端优化
-    const musicPlayer = document.getElementById('musicPlayer');
-    if (musicPlayer) {
-      // 移动端触摸播放/暂停
-      musicPlayer.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        if (musicPlayer.paused) {
-          musicPlayer.play().catch(err => {
-            // 自动播放失败不提示，静默处理
-          });
-        } else {
-          musicPlayer.pause();
-        }
-      });
+    // 11. 音乐播放器自动播放（需要用户交互后）
+    document.addEventListener('click', () => {
+      const musicPlayer = document.getElementById('musicPlayer');
+      if (musicPlayer.paused) {
+        // 自动播放需要用户交互，这里只是准备播放状态
+        musicPlayer.play().catch(err => {
+          // 静默失败，不提示用户
+        });
+      }
+    }, { once: true });
 
-      // 用户交互后尝试自动播放
-      document.addEventListener('click', () => {
-        if (musicPlayer.paused) {
-          musicPlayer.play().catch(err => { });
-        }
-      }, { once: true });
-    }
-
-    // 17. 页面加载完成初始化
+    // 页面加载完成初始化
     window.addEventListener('load', () => {
+      // 确保所有DOM元素加载完成
       if (passwordInput) {
         passwordInput.focus();
       }
-
-      // 验证过密码则直接初始化功能
-      const isAuthenticated = localStorage.getItem('isAuthenticated');
-      if (isAuthenticated === 'true') {
-        passwordModal.style.display = 'none';
-        initFunFeatures();
-      }
     });
-
-    // 18. 全局点击关闭所有滑动状态
-    document.addEventListener('click', () => {
-      const activeItems = document.querySelectorAll('.message-item.swipe-active');
-      activeItems.forEach(item => {
-        item.classList.remove('swipe-active');
-        item.style.transform = 'translateX(0)';
-      });
-    });
-
-    // 优化移动端滚动体验
-    document.addEventListener('touchmove', (e) => {
-      // 防止滚动时触发其他事件
-    }, { passive: true });
   </script>
 </body>
 
